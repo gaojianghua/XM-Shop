@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
 import 'package:get/get.dart';
@@ -15,7 +13,7 @@ import "../../../services/ityingFonts.dart";
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
-
+  // tabbar
   Widget _appBar() {
     return Positioned(
       top: 0,
@@ -79,6 +77,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  // 顶部轮播图
   Widget _focus() {
     return SizedBox(
       width: ScreenAdapter.width(1080),
@@ -98,6 +97,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  // banner
   Widget _banner() {
     return SizedBox(
       width: ScreenAdapter.width(1080),
@@ -109,6 +109,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  // 大图banner
   Widget _banner2() {
     return Padding(
         padding: EdgeInsets.fromLTRB(ScreenAdapter.width(20),
@@ -122,6 +123,7 @@ class HomeView extends GetView<HomeController> {
             height: ScreenAdapter.height(420)));
   }
 
+  // 分类菜单
   Widget _category() {
     return SizedBox(
         width: ScreenAdapter.width(1080),
@@ -187,7 +189,43 @@ class HomeView extends GetView<HomeController> {
         ));
   }
 
-  // 热销
+  // 热销臻选左侧轮播
+  _sellingLeftSwiper() {
+    return Swiper(
+      itemCount: controller.bestSellingSwiperList.length,
+      itemBuilder: (c, i) {
+        String picUrl =
+            "https://miapp.itying.com/${controller.bestSellingSwiperList[i].pic}";
+        return Image.network(picUrl.replaceAll("\\", "/"), fit: BoxFit.fill);
+      },
+      pagination: SwiperPagination(
+          margin: const EdgeInsets.all(0.0),
+          builder: SwiperCustomPagination(
+              builder: (BuildContext context, SwiperPluginConfig config) {
+            return ConstrainedBox(
+              constraints:
+                  BoxConstraints.expand(height: ScreenAdapter.height(36)),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: const RectSwiperPaginationBuilder(
+                        color: Colors.black12,
+                        activeColor: Colors.black54,
+                      ).build(context, config),
+                    ),
+                  )
+                ],
+              ),
+            );
+          })),
+      autoplay: true,
+      loop: true,
+    );
+  }
+
+  // 热销臻选
   Widget _bestSelling() {
     return Column(
       children: [
@@ -213,71 +251,77 @@ class HomeView extends GetView<HomeController> {
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(ScreenAdapter.width(20), 0,
-              ScreenAdapter.width(20), ScreenAdapter.height(20)),
+              ScreenAdapter.width(40), ScreenAdapter.height(20)),
           child: Row(
             children: [
               Expanded(
-                flex: 1,
-                child: Container(
-                  height: ScreenAdapter.height(738),
-                  child: Text("1"),
-                )
-              ),
+                  flex: 1,
+                  child: SizedBox(
+                      height: ScreenAdapter.height(738),
+                      child: Obx(() => _sellingLeftSwiper()))),
               SizedBox(
                 width: ScreenAdapter.width(20),
               ),
               Expanded(
-                flex: 1,
-                child: Container(
-                  height: ScreenAdapter.height(738),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: Color.fromRGBO(246, 246, 246, 1),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Text("2")
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: Color.fromRGBO(246, 246, 246, 1),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Text("2")
-                              )
-                            ],
-                          ),
-                        )
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: Color.fromRGBO(246, 246, 246, 1),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Text("2")
-                              )
-                            ],
-                          ),
-                        )
-                      )
-                    ],
-                  ),
-                )
-              ),
+                  flex: 1,
+                  child: SizedBox(
+                    height: ScreenAdapter.height(738),
+                    child: Obx(() => Column(
+                            children: controller.sellingPList.asMap().entries.map((entries) {
+                              var item = entries.value;
+                              String picUrl =
+            "https://miapp.itying.com/${item.pic}";
+                          return Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: const Color.fromRGBO(246, 246, 246, 1),
+                              margin: EdgeInsets.fromLTRB(0, 0, 0, entries.key == 2 ? 0 : ScreenAdapter.height(20)),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                              height: ScreenAdapter.height(20)),
+                                          Text("${item.title}",
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      ScreenAdapter.fontSize(
+                                                          38),
+                                                  fontWeight: FontWeight.bold)),
+                                          SizedBox(
+                                              height: ScreenAdapter.height(20)),
+                                          Text("${item.subTitle}",
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      ScreenAdapter.fontSize(
+                                                          28))),
+                                          SizedBox(
+                                              height: ScreenAdapter.height(20)),
+                                          Text("￥${item.price}元",
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      ScreenAdapter.fontSize(
+                                                          34)))
+                                        ],
+                                      )),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(
+                                          ScreenAdapter.height(8)),
+                                      child: Image.network(
+                                          picUrl.replaceAll("\\", "/"),
+                                          fit: BoxFit.cover),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        }).toList())),
+                  )),
             ],
           ),
         )
