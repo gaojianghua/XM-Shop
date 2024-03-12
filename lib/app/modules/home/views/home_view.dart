@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
 import 'package:get/get.dart';
@@ -329,6 +332,104 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  _masonryGridView() {
+    return MasonryGridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: ScreenAdapter.width(26),
+            crossAxisSpacing: ScreenAdapter.width(26),
+            itemCount: controller.bestPList.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              String picUrl =
+            "https://miapp.itying.com/${controller.bestPList[index].sPic}";
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                      child: Image.network(
+                        picUrl.replaceAll("\\", "/"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                      child: Text(
+                        "${controller.bestPList[index].title}", 
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: ScreenAdapter.fontSize(36),
+                          fontWeight: FontWeight.bold
+                        ),
+                      )
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                      child: Text(
+                        "${controller.bestPList[index].subTitle}", 
+                        textAlign: TextAlign.start,
+                        style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
+                      )
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                      child: Text(
+                        "￥${controller.bestPList[index].price}", 
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: ScreenAdapter.fontSize(42),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red
+                        ),
+                      )
+                    )
+                  ],
+                ),
+              );
+            }
+          );
+  }
+
+  Widget _bestGoods() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(ScreenAdapter.width(30),
+              ScreenAdapter.height(20), ScreenAdapter.width(30), 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "省心优惠",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: ScreenAdapter.fontSize(46)),
+              ),
+              Text(
+                "更多优惠 >",
+                style: TextStyle(fontSize: ScreenAdapter.fontSize(38)),
+              )
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(ScreenAdapter.width(26)),
+          color: const Color.fromRGBO(246, 246, 246, 1),
+          child: Obx(() => _masonryGridView()) 
+        )
+      ],
+    );
+  }
+
   Widget _homePage() {
     return Positioned(
         top: -60,
@@ -342,7 +443,8 @@ class HomeView extends GetView<HomeController> {
             _banner(),
             _category(),
             _banner2(),
-            _bestSelling()
+            _bestSelling(),
+            _bestGoods()
           ],
         ));
   }

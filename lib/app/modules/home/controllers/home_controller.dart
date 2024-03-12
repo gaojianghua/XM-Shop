@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:18:46
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-11 17:03:42
+ * @LastEditTime: 2024-03-12 17:05:02
  * @Description: file content
  */
 import 'package:dio/dio.dart';
@@ -19,6 +19,7 @@ class HomeController extends GetxController {
   RxList<FocusItemModel> bestSellingSwiperList = <FocusItemModel>[].obs;
   RxList<CategoryItemModel> categoryList = <CategoryItemModel>[].obs;
   RxList<PlistItemModel> sellingPList = <PlistItemModel>[].obs;
+  RxList<PlistItemModel> bestPList = <PlistItemModel>[].obs;
 
   @override
   void onInit() {
@@ -27,6 +28,7 @@ class HomeController extends GetxController {
     getCategoryData();
     getBestSellingData();
     getSellingPData();
+    getHotGoodsData();
     scrollControllerListener();
   }
 
@@ -72,6 +74,13 @@ class HomeController extends GetxController {
     var response = await Dio().get("https://miapp.itying.com/api/bestCate");
     var category = CategoryModel.fromJson(response.data);
     categoryList.value = category.result!;
+    update();
+  }
+  // 获取热门商品数据
+  getHotGoodsData() async {
+    var response = await Dio().get("https://miapp.itying.com/api/plist?is_best=1");
+    var pList = PlistModel.fromJson(response.data);
+    bestPList.value = pList.result!;
     update();
   }
 }
