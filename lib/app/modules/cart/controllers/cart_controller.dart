@@ -1,7 +1,13 @@
+/*
+ * @Author: 高江华 g598670138@163.com
+ * @Date: 2024-03-13 20:04:09
+ * @LastEditors: 高江华
+ * @LastEditTime: 2024-03-13 22:58:21
+ * @Description: file content
+ */
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
-  //TODO: Implement CartController
 
   final count = 0.obs;
   @override

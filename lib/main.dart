@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 14:42:19
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-08 15:50:27
+ * @LastEditTime: 2024-03-14 00:20:48
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -27,7 +27,12 @@ void main() {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: "Application",
+          theme: ThemeData(
+            primarySwatch: Colors.grey
+          ),
           initialRoute: AppPages.INITIAL,
+          // 配置IOS动画
+          defaultTransition: Transition.rightToLeft,
           getPages: AppPages.routes,
         );
       }));
