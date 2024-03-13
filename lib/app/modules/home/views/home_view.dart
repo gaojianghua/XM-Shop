@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
 import 'package:get/get.dart';
+import 'package:xmshop/app/services/httpsClient.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -28,6 +27,7 @@ class HomeView extends GetView<HomeController> {
                 : const Icon(
                     ItyingFonts.xiaomi,
                     color: Colors.white,
+                    size: 34,
                   ),
             leadingWidth: controller.flag.value
                 ? ScreenAdapter.width(40)
@@ -38,7 +38,7 @@ class HomeView extends GetView<HomeController> {
                   : ScreenAdapter.width(620),
               height: ScreenAdapter.height(96),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(230, 252, 243, 236),
+                color: const Color.fromRGBO(246, 246, 246, 1),
                 borderRadius: BorderRadius.circular(30),
               ),
               duration: const Duration(milliseconds: 600),
@@ -66,12 +66,14 @@ class HomeView extends GetView<HomeController> {
                   onPressed: () {},
                   icon: Icon(
                     Icons.qr_code,
+                    size: 32,
                     color:
                         controller.flag.value ? Colors.black87 : Colors.white,
                   )),
               IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.message,
+                      size: 32,
                       color: controller.flag.value
                           ? Colors.black87
                           : Colors.white))
@@ -88,9 +90,7 @@ class HomeView extends GetView<HomeController> {
       child: Obx(() => Swiper(
             itemCount: controller.swiperList.length,
             itemBuilder: (c, i) {
-              String picUrl =
-                  "https://miapp.itying.com/${controller.swiperList[i].pic}";
-              return Image.network(picUrl.replaceAll("\\", "/"),
+              return Image.network(HttpsClient.replaceUri(controller.swiperList[i].pic),
                   fit: BoxFit.fill);
             },
             pagination: const SwiperPagination(builder: SwiperPagination.rect),
@@ -141,15 +141,13 @@ class HomeView extends GetView<HomeController> {
                       crossAxisSpacing: ScreenAdapter.width(20),
                       mainAxisSpacing: ScreenAdapter.height(20)),
                   itemBuilder: (context, i) {
-                    String picUrl =
-                        "https://miapp.itying.com/${controller.categoryList[index * 10 + i].pic}";
                     return Column(
                       children: [
                         Container(
                           alignment: Alignment.center,
                           width: ScreenAdapter.height(136),
                           height: ScreenAdapter.height(136),
-                          child: Image.network(picUrl.replaceAll("\\", "/"),
+                          child: Image.network(HttpsClient.replaceUri(controller.categoryList[index * 10 + i].pic),
                               fit: BoxFit.fitHeight),
                         ),
                         Padding(
@@ -197,9 +195,7 @@ class HomeView extends GetView<HomeController> {
     return Swiper(
       itemCount: controller.bestSellingSwiperList.length,
       itemBuilder: (c, i) {
-        String picUrl =
-            "https://miapp.itying.com/${controller.bestSellingSwiperList[i].pic}";
-        return Image.network(picUrl.replaceAll("\\", "/"), fit: BoxFit.fill);
+        return Image.network(HttpsClient.replaceUri(controller.bestSellingSwiperList[i].pic), fit: BoxFit.fill);
       },
       pagination: SwiperPagination(
           margin: const EdgeInsets.all(0.0),
@@ -270,15 +266,22 @@ class HomeView extends GetView<HomeController> {
                   child: SizedBox(
                     height: ScreenAdapter.height(738),
                     child: Obx(() => Column(
-                            children: controller.sellingPList.asMap().entries.map((entries) {
-                              var item = entries.value;
-                              String picUrl =
-            "https://miapp.itying.com/${item.pic}";
+                            children: controller.sellingPList
+                                .asMap()
+                                .entries
+                                .map((entries) {
+                          var item = entries.value;
                           return Expanded(
                             flex: 1,
                             child: Container(
                               color: const Color.fromRGBO(246, 246, 246, 1),
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, entries.key == 2 ? 0 : ScreenAdapter.height(20)),
+                              margin: EdgeInsets.fromLTRB(
+                                  0,
+                                  0,
+                                  0,
+                                  entries.key == 2
+                                      ? 0
+                                      : ScreenAdapter.height(20)),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -315,7 +318,7 @@ class HomeView extends GetView<HomeController> {
                                       padding: EdgeInsets.all(
                                           ScreenAdapter.height(8)),
                                       child: Image.network(
-                                          picUrl.replaceAll("\\", "/"),
+                                          HttpsClient.replaceUri(item.pic),
                                           fit: BoxFit.cover),
                                     ),
                                   )
@@ -334,68 +337,58 @@ class HomeView extends GetView<HomeController> {
 
   _masonryGridView() {
     return MasonryGridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: ScreenAdapter.width(26),
-            crossAxisSpacing: ScreenAdapter.width(26),
-            itemCount: controller.bestPList.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              String picUrl =
-            "https://miapp.itying.com/${controller.bestPList[index].sPic}";
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
+        crossAxisCount: 2,
+        mainAxisSpacing: ScreenAdapter.width(26),
+        crossAxisSpacing: ScreenAdapter.width(26),
+        itemCount: controller.bestPList.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                  child: Image.network(
+                    HttpsClient.replaceUri(controller.bestPList[index].sPic),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                      child: Image.network(
-                        picUrl.replaceAll("\\", "/"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                      child: Text(
-                        "${controller.bestPList[index].title}", 
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
+                Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                    child: Text(
+                      "${controller.bestPList[index].title}",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
                           fontSize: ScreenAdapter.fontSize(36),
-                          fontWeight: FontWeight.bold
-                        ),
-                      )
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                      child: Text(
-                        "${controller.bestPList[index].subTitle}", 
-                        textAlign: TextAlign.start,
-                        style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
-                      )
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(ScreenAdapter.width(10)),
-                      child: Text(
-                        "￥${controller.bestPList[index].price}", 
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
+                          fontWeight: FontWeight.bold),
+                    )),
+                Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                    child: Text(
+                      "${controller.bestPList[index].subTitle}",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
+                    )),
+                Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(ScreenAdapter.width(10)),
+                    child: Text(
+                      "￥${controller.bestPList[index].price}",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
                           fontSize: ScreenAdapter.fontSize(42),
                           fontWeight: FontWeight.bold,
-                          color: Colors.red
-                        ),
-                      )
-                    )
-                  ],
-                ),
-              );
-            }
+                          color: Colors.red),
+                    ))
+              ],
+            ),
           );
+        });
   }
 
   Widget _bestGoods() {
@@ -422,10 +415,9 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(ScreenAdapter.width(26)),
-          color: const Color.fromRGBO(246, 246, 246, 1),
-          child: Obx(() => _masonryGridView()) 
-        )
+            padding: EdgeInsets.all(ScreenAdapter.width(26)),
+            color: const Color.fromRGBO(246, 246, 246, 1),
+            child: Obx(() => _masonryGridView()))
       ],
     );
   }
