@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:26:25
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-13 17:34:42
+ * @LastEditTime: 2024-03-14 16:28:49
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -108,28 +108,32 @@ class CategoryView extends GetView<CategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-          width: ScreenAdapter.width(840),
-          height: ScreenAdapter.height(96),
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(246, 246, 246, 1),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                    ScreenAdapter.width(34), 0, ScreenAdapter.width(10), 0),
-                child: const Icon(Icons.search),
+        title: InkWell(
+            onTap: () {
+              Get.toNamed("/search");
+            },
+            child: Container(
+              width: ScreenAdapter.width(840),
+              height: ScreenAdapter.height(96),
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(246, 246, 246, 1),
+                borderRadius: BorderRadius.circular(30),
               ),
-              Text("手机",
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: ScreenAdapter.fontSize(32)))
-            ],
-          ),
-        ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        ScreenAdapter.width(34), 0, ScreenAdapter.width(10), 0),
+                    child: const Icon(Icons.search),
+                  ),
+                  Text("手机",
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: ScreenAdapter.fontSize(32)))
+                ],
+              ),
+            )),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,

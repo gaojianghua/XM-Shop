@@ -46,7 +46,7 @@ class CategoryController extends GetxController {
 
   // 切换二级分类
   void getRightCategoryList(String pid) async {
-    var response = await https.get("/api/pcate?pid=${pid}");
+    var response = await https.get("/api/pcate?pid=$pid");
     if (response != null) {
       var category = CategoryModel.fromJson(response.data);
       rightCategoryList.value = category.result!;

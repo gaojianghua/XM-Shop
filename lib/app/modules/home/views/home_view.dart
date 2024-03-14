@@ -32,31 +32,35 @@ class HomeView extends GetView<HomeController> {
             leadingWidth: controller.flag.value
                 ? ScreenAdapter.width(40)
                 : ScreenAdapter.width(140),
-            title: AnimatedContainer(
-              width: controller.flag.value
-                  ? ScreenAdapter.width(800)
-                  : ScreenAdapter.width(620),
-              height: ScreenAdapter.height(96),
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(246, 246, 246, 1),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              duration: const Duration(milliseconds: 600),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        ScreenAdapter.width(34), 0, ScreenAdapter.width(10), 0),
-                    child: const Icon(Icons.search),
+            title: InkWell(
+                onTap: () {
+                  Get.toNamed("/search");
+                },
+                child: AnimatedContainer(
+                  width: controller.flag.value
+                      ? ScreenAdapter.width(800)
+                      : ScreenAdapter.width(620),
+                  height: ScreenAdapter.height(96),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(246, 246, 246, 1),
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  Text("手机",
-                      style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: ScreenAdapter.fontSize(32)))
-                ],
-              ),
-            ),
+                  duration: const Duration(milliseconds: 600),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(ScreenAdapter.width(34), 0,
+                            ScreenAdapter.width(10), 0),
+                        child: const Icon(Icons.search),
+                      ),
+                      Text("手机",
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: ScreenAdapter.fontSize(32)))
+                    ],
+                  ),
+                )),
             centerTitle: true,
             backgroundColor:
                 controller.flag.value ? Colors.white : Colors.transparent,
@@ -90,7 +94,8 @@ class HomeView extends GetView<HomeController> {
       child: Obx(() => Swiper(
             itemCount: controller.swiperList.length,
             itemBuilder: (c, i) {
-              return Image.network(HttpsClient.replaceUri(controller.swiperList[i].pic),
+              return Image.network(
+                  HttpsClient.replaceUri(controller.swiperList[i].pic),
                   fit: BoxFit.fill);
             },
             pagination: const SwiperPagination(builder: SwiperPagination.rect),
@@ -147,7 +152,9 @@ class HomeView extends GetView<HomeController> {
                           alignment: Alignment.center,
                           width: ScreenAdapter.height(136),
                           height: ScreenAdapter.height(136),
-                          child: Image.network(HttpsClient.replaceUri(controller.categoryList[index * 10 + i].pic),
+                          child: Image.network(
+                              HttpsClient.replaceUri(
+                                  controller.categoryList[index * 10 + i].pic),
                               fit: BoxFit.fitHeight),
                         ),
                         Padding(
@@ -195,7 +202,9 @@ class HomeView extends GetView<HomeController> {
     return Swiper(
       itemCount: controller.bestSellingSwiperList.length,
       itemBuilder: (c, i) {
-        return Image.network(HttpsClient.replaceUri(controller.bestSellingSwiperList[i].pic), fit: BoxFit.fill);
+        return Image.network(
+            HttpsClient.replaceUri(controller.bestSellingSwiperList[i].pic),
+            fit: BoxFit.fill);
       },
       pagination: SwiperPagination(
           margin: const EdgeInsets.all(0.0),
