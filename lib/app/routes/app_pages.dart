@@ -11,7 +11,7 @@ import '../modules/tabs/views/tabs_view.dart';
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:18:46
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-13 17:34:16
+ * @LastEditTime: 2024-03-15 10:54:44
  * @Description: file content
  */
 
@@ -34,6 +34,8 @@ class AppPages {
       binding: ProductListBinding(),
     ),
     GetPage(
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 100),
       name: _Paths.SEARCH,
       page: () => const SearchView(),
       binding: SearchBinding(),

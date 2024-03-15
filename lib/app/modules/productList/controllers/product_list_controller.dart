@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-13 17:33:26
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-14 16:16:30
+ * @LastEditTime: 2024-03-15 10:27:00
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -31,6 +31,10 @@ class ProductListController extends GetxController {
   RxInt selectHeaderId = 1.obs;
   // 处理箭头变化
   RxInt subHeaderListSort = 0.obs;
+  // 获取路由传值
+  String? keywords = Get.arguments['keywords'];
+  String? cid = Get.arguments['cid'];
+  String apiUri = "";
 
   @override
   void onInit() {
@@ -76,8 +80,12 @@ class ProductListController extends GetxController {
   void getProductList() async {
     if (flag == true && hasData.value == true) {
       flag = false;
-      var response = await https.get(
-          "/api/plist?cid=${Get.arguments["cid"]}&page=$page&pageSize=$pageSize&sort=$sort");
+      if (cid != null) {
+        apiUri = "/api/plist?cid=$cid&page=$page&pageSize=$pageSize&sort=$sort";
+      }else if (keywords != null) {
+        apiUri = "/api/plist?search=$keywords&page=$page&pageSize=$pageSize&sort=$sort";
+      }
+      var response = await https.get(apiUri);
       if (response != null) {
         var pList = PlistModel.fromJson(response.data);
         productList.addAll(pList.result!);

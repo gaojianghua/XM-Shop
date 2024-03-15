@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-13 18:32:02
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-14 16:39:11
+ * @LastEditTime: 2024-03-15 11:08:46
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -17,8 +17,7 @@ class ProductListView extends GetView<ProductListController> {
   const ProductListView({Key? key}) : super(key: key);
 
   Widget _productList() {
-    return Obx(() => controller.productList.isNotEmpty
-        ? ListView.builder(
+    return ListView.builder(
             controller: controller.scrollController,
             padding: EdgeInsets.fromLTRB(
                 ScreenAdapter.width(26),
@@ -147,8 +146,7 @@ class ProductListView extends GetView<ProductListController> {
                     : const Text("")
               ]);
             }),
-          )
-        : _progressIndicator());
+          );
   }
 
   Widget _subHeader() {
@@ -166,7 +164,7 @@ class ProductListView extends GetView<ProductListController> {
                         width: ScreenAdapter.height(2),
                         color: const Color.fromRGBO(233, 233, 233, 0.9)))),
             child: Row(
-                children: controller.subHeaderList.map((e) {
+                children: controller.subHeaderList.map((value) {
               return Expanded(
                   flex: 1,
                   child: Row(
@@ -174,7 +172,7 @@ class ProductListView extends GetView<ProductListController> {
                       children: [
                         InkWell(
                           onTap: () {
-                            controller.subHeaderChange(e["id"]);
+                            controller.subHeaderChange(value["id"]);
                           },
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(
@@ -183,17 +181,17 @@ class ProductListView extends GetView<ProductListController> {
                                 0,
                                 ScreenAdapter.height(16)),
                             child: Text(
-                              "${e["title"]}",
+                              "${value["title"]}",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: controller.selectHeaderId == e["id"]
+                                  color: controller.selectHeaderId == value["id"]
                                       ? Colors.red
                                       : Colors.black54,
                                   fontSize: ScreenAdapter.fontSize(32)),
                             ),
                           ),
                         ),
-                        _showIcon(e["id"])
+                        _showIcon(value["id"])
                       ]));
             }).toList()),
           )),
@@ -202,10 +200,7 @@ class ProductListView extends GetView<ProductListController> {
 
   // 自定义箭头组件
   Widget _showIcon(id) {
-    if (id == 2 ||
-        id == 3 ||
-        controller.subHeaderListSort.value == 1 ||
-        controller.subHeaderListSort.value == -1) {
+    if (id == 2 || id == 3 || controller.subHeaderListSort.value==1 || controller.subHeaderListSort.value==-1) {
       if (controller.subHeaderList[id - 1]["sort"] == 1) {
         return const Icon(Icons.arrow_drop_down, color: Colors.black54);
       } else {
@@ -241,7 +236,7 @@ class ProductListView extends GetView<ProductListController> {
         appBar: AppBar(
           title: InkWell(
               onTap: () {
-                Get.toNamed("/search");
+                Get.offAndToNamed("/search");
               },
               child: Container(
                 width: ScreenAdapter.width(900),
@@ -256,9 +251,9 @@ class ProductListView extends GetView<ProductListController> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(ScreenAdapter.width(34), 0,
                           ScreenAdapter.width(10), 0),
-                      child: const Icon(Icons.search),
+                      child: const Icon(Icons.search, color: Colors.black54,),
                     ),
-                    Text("手机",
+                    Text(controller.keywords != null ? "${controller.keywords}" : "",
                         style: TextStyle(
                             color: Colors.black54,
                             fontSize: ScreenAdapter.fontSize(32)))
@@ -270,8 +265,9 @@ class ProductListView extends GetView<ProductListController> {
           elevation: 0,
           actions: const [Text("")],
         ),
-        body: Stack(
+        body: Obx(() => controller.productList.isNotEmpty
+        ? Stack(
           children: [_productList(), _subHeader()],
-        ));
+        ): _progressIndicator()));
   }
 }

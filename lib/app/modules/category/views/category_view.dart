@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:26:25
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-14 16:28:49
+ * @LastEditTime: 2024-03-15 11:04:48
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -125,7 +125,7 @@ class CategoryView extends GetView<CategoryController> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(
                         ScreenAdapter.width(34), 0, ScreenAdapter.width(10), 0),
-                    child: const Icon(Icons.search),
+                    child: const Icon(Icons.search,color: Colors.black54,),
                   ),
                   Text("手机",
                       style: TextStyle(
