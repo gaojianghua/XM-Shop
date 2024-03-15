@@ -26,8 +26,7 @@ class HomeView extends GetView<HomeController> {
                 ? const Text("")
                 : const Icon(
                     ItyingFonts.xiaomi,
-                    color: Colors.white,
-                    size: 34,
+                    color: Colors.white
                   ),
             leadingWidth: controller.flag.value
                 ? ScreenAdapter.width(40)
@@ -70,14 +69,12 @@ class HomeView extends GetView<HomeController> {
                   onPressed: () {},
                   icon: Icon(
                     Icons.qr_code,
-                    size: 32,
                     color:
                         controller.flag.value ? Colors.black87 : Colors.white,
                   )),
               IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.message,
-                      size: 32,
                       color: controller.flag.value
                           ? Colors.black87
                           : Colors.white))

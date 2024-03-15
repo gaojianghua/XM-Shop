@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-14 16:14:42
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-15 16:34:29
+ * @LastEditTime: 2024-03-15 20:20:39
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:xmshop/app/services/screenAdapter.dart';
 import 'package:xmshop/app/services/searchServices.dart';
 
 import '../controllers/searchs_controller.dart';
+import 'dart:io' show Platform;
 
 class SearchView extends GetView<SearchsController> {
   const SearchView({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class SearchView extends GetView<SearchsController> {
               cursorHeight: ScreenAdapter.height(46),
               autofocus: true,
               decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(0),
+                  contentPadding: Platform.isIOS ? const EdgeInsets.all(0) : EdgeInsets.only(top: ScreenAdapter.height(15)),
                   prefixIcon: const Icon(Icons.search, color: Colors.black54),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),

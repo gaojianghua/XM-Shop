@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:26:25
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-15 11:04:48
+ * @LastEditTime: 2024-03-15 20:07:05
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -141,7 +141,7 @@ class CategoryView extends GetView<CategoryController> {
           IconButton(
               onPressed: () {},
               icon: const Icon(Icons.message_outlined,
-                  size: 32, color: Colors.black26))
+                  color: Colors.black26))
         ],
       ),
       body: Row(children: [_leftCategory(), _rightContent()]),
