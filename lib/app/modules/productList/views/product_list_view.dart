@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-13 18:32:02
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-15 11:08:46
+ * @LastEditTime: 2024-03-16 09:40:26
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -18,135 +18,140 @@ class ProductListView extends GetView<ProductListController> {
 
   Widget _productList() {
     return ListView.builder(
-            controller: controller.scrollController,
-            padding: EdgeInsets.fromLTRB(
-                ScreenAdapter.width(26),
-                ScreenAdapter.height(140),
-                ScreenAdapter.width(26),
-                ScreenAdapter.height(10)),
-            itemCount: controller.productList.length,
-            itemBuilder: ((context, index) {
-              return Column(children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: ScreenAdapter.height(26)),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Row(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(ScreenAdapter.width(60)),
-                          width: ScreenAdapter.width(400),
-                          height: ScreenAdapter.height(460),
-                          child: Image.network(
-                              "${HttpsClient.replaceUri(controller.productList[index].sPic)}",
-                              fit: BoxFit.fitHeight)),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: ScreenAdapter.height(20)),
-                              child: Text(
-                                "${controller.productList[index].title}",
-                                style: TextStyle(
-                                    fontSize: ScreenAdapter.fontSize(42),
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: ScreenAdapter.height(20)),
-                              child: Text(
-                                "${controller.productList[index].subTitle}",
-                                style: TextStyle(
-                                    fontSize: ScreenAdapter.fontSize(34)),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                  bottom: ScreenAdapter.height(20)),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ScreenAdapter.fontSize(34),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ScreenAdapter.fontSize(34)),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ScreenAdapter.fontSize(34),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ScreenAdapter.fontSize(34)),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ScreenAdapter.fontSize(34),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ScreenAdapter.fontSize(34)),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Text(
-                              "￥${controller.productList[index].price}起",
+      controller: controller.scrollController,
+      padding: EdgeInsets.fromLTRB(
+          ScreenAdapter.width(26),
+          ScreenAdapter.height(140),
+          ScreenAdapter.width(26),
+          ScreenAdapter.height(10)),
+      itemCount: controller.productList.length,
+      itemBuilder: ((context, index) {
+        return InkWell(
+            onTap: () {
+              Get.toNamed('/product-detail',
+                  arguments: {"id": controller.productList[index].sId});
+            },
+            child: Column(children: [
+              Container(
+                margin: EdgeInsets.only(bottom: ScreenAdapter.height(26)),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Row(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(ScreenAdapter.width(60)),
+                        width: ScreenAdapter.width(400),
+                        height: ScreenAdapter.height(460),
+                        child: Image.network(
+                            "${HttpsClient.replaceUri(controller.productList[index].sPic)}",
+                            fit: BoxFit.fitHeight)),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: ScreenAdapter.height(20)),
+                            child: Text(
+                              "${controller.productList[index].title}",
                               style: TextStyle(
-                                  fontSize: ScreenAdapter.fontSize(38),
+                                  fontSize: ScreenAdapter.fontSize(42),
                                   fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: ScreenAdapter.height(20)),
+                            child: Text(
+                              "${controller.productList[index].subTitle}",
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(34)),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                                bottom: ScreenAdapter.height(20)),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            fontSize:
+                                                ScreenAdapter.fontSize(34)),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Text(
+                            "￥${controller.productList[index].price}起",
+                            style: TextStyle(
+                                fontSize: ScreenAdapter.fontSize(38),
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                (index == controller.productList.length - 1)
-                    ? _progressIndicator()
-                    : const Text("")
-              ]);
-            }),
-          );
+              ),
+              (index == controller.productList.length - 1)
+                  ? _progressIndicator()
+                  : const Text("")
+            ]));
+      }),
+    );
   }
 
   Widget _subHeader() {
@@ -184,9 +189,10 @@ class ProductListView extends GetView<ProductListController> {
                               "${value["title"]}",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: controller.selectHeaderId == value["id"]
-                                      ? Colors.red
-                                      : Colors.black54,
+                                  color:
+                                      controller.selectHeaderId == value["id"]
+                                          ? Colors.red
+                                          : Colors.black54,
                                   fontSize: ScreenAdapter.fontSize(32)),
                             ),
                           ),
@@ -200,7 +206,10 @@ class ProductListView extends GetView<ProductListController> {
 
   // 自定义箭头组件
   Widget _showIcon(id) {
-    if (id == 2 || id == 3 || controller.subHeaderListSort.value==1 || controller.subHeaderListSort.value==-1) {
+    if (id == 2 ||
+        id == 3 ||
+        controller.subHeaderListSort.value == 1 ||
+        controller.subHeaderListSort.value == -1) {
       if (controller.subHeaderList[id - 1]["sort"] == 1) {
         return const Icon(Icons.arrow_drop_down, color: Colors.black54);
       } else {
@@ -251,9 +260,15 @@ class ProductListView extends GetView<ProductListController> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(ScreenAdapter.width(34), 0,
                           ScreenAdapter.width(10), 0),
-                      child: const Icon(Icons.search, color: Colors.black54,),
+                      child: const Icon(
+                        Icons.search,
+                        color: Colors.black54,
+                      ),
                     ),
-                    Text(controller.keywords != null ? "${controller.keywords}" : "",
+                    Text(
+                        controller.keywords != null
+                            ? "${controller.keywords}"
+                            : "",
                         style: TextStyle(
                             color: Colors.black54,
                             fontSize: ScreenAdapter.fontSize(32)))
@@ -266,8 +281,9 @@ class ProductListView extends GetView<ProductListController> {
           actions: const [Text("")],
         ),
         body: Obx(() => controller.productList.isNotEmpty
-        ? Stack(
-          children: [_productList(), _subHeader()],
-        ): _progressIndicator()));
+            ? Stack(
+                children: [_productList(), _subHeader()],
+              )
+            : _progressIndicator()));
   }
 }

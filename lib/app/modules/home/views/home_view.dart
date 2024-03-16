@@ -350,7 +350,13 @@ class HomeView extends GetView<HomeController> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          return Container(
+          return InkWell(
+            onTap: () {
+              Get.toNamed('/product-detail', arguments: {
+                "id": controller.bestPList[index].sId
+              });
+            },
+            child:  Container(
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: Column(
@@ -393,7 +399,7 @@ class HomeView extends GetView<HomeController> {
                     ))
               ],
             ),
-          );
+          ));
         });
   }
 

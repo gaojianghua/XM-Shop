@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/productDetail/bindings/product_detail_binding.dart';
+import '../modules/productDetail/views/product_detail_view.dart';
 import '../modules/productList/bindings/product_list_binding.dart';
 import '../modules/productList/views/product_list_view.dart';
 import '../modules/search/bindings/search_binding.dart';
@@ -39,6 +41,11 @@ class AppPages {
       name: _Paths.SEARCH,
       page: () => const SearchView(),
       binding: SearchBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT_DETAIL,
+      page: () => const ProductDetailView(),
+      binding: ProductDetailBinding(),
     ),
   ];
 }
