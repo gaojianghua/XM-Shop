@@ -2,14 +2,15 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-16 17:44:28
+ * @LastEditTime: 2024-03-17 23:06:07
  * @Description: file content
  */
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
+import 'package:xmshop/app/modules/productDetail/views/first_page_view.dart';
+import 'package:xmshop/app/modules/productDetail/views/second_page_view.dart';
+import 'package:xmshop/app/modules/productDetail/views/third_page_view.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
 import '../controllers/product_detail_controller.dart';
@@ -207,30 +208,9 @@ class ProductDetailView extends GetView<ProductDetailController> {
         controller: controller.scrollController,
         child: Column(
           children: [
-            Container(
-              key: controller.gk1,
-              alignment: Alignment.center,
-              width: ScreenAdapter.width(1080),
-              height: ScreenAdapter.height(1800),
-              color: Colors.orange,
-              child: Text("123"),
-            ),
-            Container(
-              key: controller.gk2,
-              alignment: Alignment.center,
-              width: ScreenAdapter.width(1080),
-              height: ScreenAdapter.height(1800),
-              color: Colors.orange,
-              child: Text("123"),
-            ),
-            Container(
-              key: controller.gk3,
-              alignment: Alignment.center,
-              width: ScreenAdapter.width(1080),
-              height: ScreenAdapter.height(1800),
-              color: Colors.orange,
-              child: Text("123"),
-            )
+            FirstPageView(),
+            SecondPageView(),
+            ThirdPageView()
           ],
         ),
       );
