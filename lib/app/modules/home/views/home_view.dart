@@ -315,7 +315,7 @@ class HomeView extends GetView<HomeController> {
                                               style: TextStyle(
                                                   fontSize:
                                                       ScreenAdapter.fontSize(
-                                                          34)))
+                                                          32)))
                                         ],
                                       )),
                                   Expanded(

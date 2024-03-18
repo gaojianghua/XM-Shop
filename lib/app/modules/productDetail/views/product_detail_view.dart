@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-18 17:47:37
+ * @LastEditTime: 2024-03-19 00:03:15
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -159,7 +159,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                 : const Text(""),
           ),
           centerTitle: true,
-          backgroundColor: Colors.white.withOpacity(0.5),
+          backgroundColor: Colors.white.withOpacity(controller.opacity.value),
           elevation: 0,
           actions: [
             Container(
@@ -261,40 +261,38 @@ class ProductDetailView extends GetView<ProductDetailController> {
   }
 
   Widget _subHeader() {
-    return Container(
-      color: Colors.white,
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: ScreenAdapter.height(120),
-              alignment: Alignment.center,
-              child: Text(
-                "商品介绍",
-                style: TextStyle(color: Colors.red),
+    return Obx(() => Container(
+          color: Colors.white,
+          child: Row(
+              children: controller.subTabList.map((value) {
+            return Expanded(
+                child: InkWell(
+              onTap: () {
+                controller.changeSelectedSubTabsIndex(value["id"]);
+              },
+              child: Container(
+                height: ScreenAdapter.height(120),
+                alignment: Alignment.center,
+                child: Text("${value["title"]}",
+                    style: TextStyle(
+                        color: controller.selectedSubTabsIndex == value["id"]
+                            ? Colors.red
+                            : Colors.black87)),
               ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              height: ScreenAdapter.height(120),
-              alignment: Alignment.center,
-              child: Text(
-                "规格参数",
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          )
-        ],
-      ),
-    ); 
+            ));
+          }).toList()),
+        ));
   }
 
   Widget _body() {
     return SingleChildScrollView(
       controller: controller.scrollController,
       child: Column(
-        children: [FirstPageView(showAttr), SecondPageView(_subHeader), ThirdPageView()],
+        children: [
+          FirstPageView(showAttr),
+          SecondPageView(_subHeader),
+          ThirdPageView()
+        ],
       ),
     );
   }
@@ -376,17 +374,18 @@ class ProductDetailView extends GetView<ProductDetailController> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(ScreenAdapter.height(120)),
             child: _appBar(context)),
-        body: Stack(
-          children: [
-            _body(), 
-            _bottom(), 
-            Positioned(
-              left: 0,
-              top: ScreenAdapter.getStatusHeight() + ScreenAdapter.height(118),
-              right: 0,
-              child: _subHeader(),
-            )
-          ]
-        ));
+        body: Stack(children: [
+          _body(),
+          _bottom(),
+          Obx(() => controller.showSubHeaderTabs.value
+              ? Positioned(
+                  left: 0,
+                  top: ScreenAdapter.getStatusHeight() +
+                      ScreenAdapter.height(118),
+                  right: 0,
+                  child: _subHeader(),
+                )
+              : const Text(""))
+        ]));
   }
 }
