@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-18 09:25:41
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-18 23:59:53
+ * @LastEditTime: 2024-03-19 14:50:43
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class SecondPageView extends GetView {
         children: [
           _subHeader(),
           Obx(() => controller.selectedSubTabsIndex.value == 1
-              ? Container(
+              ? SizedBox(
                   width: ScreenAdapter.width(1080),
                   child: controller.productDetail.value.content != null ? Html(
                     data: controller.productDetail.value.content,
@@ -37,7 +37,7 @@ class SecondPageView extends GetView {
                     },
                   ): const CircularProgressIndicator(),
                 )
-              : Container(
+              : SizedBox(
                   width: ScreenAdapter.width(1080),
                   child: controller.productDetail.value.specs != null ? Html(
                     data: controller.productDetail.value.specs,

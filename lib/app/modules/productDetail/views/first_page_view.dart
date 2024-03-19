@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-17 12:13:03
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-18 10:59:30
+ * @LastEditTime: 2024-03-19 15:54:55
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -111,21 +111,21 @@ class FirstPageView extends GetView {
                     right: ScreenAdapter.width(20)),
                 child: InkWell(
                     onTap: () {
-                      showAttr();
+                      showAttr(1);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               "已选",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: ScreenAdapter.width(20)),
-                              child: const Text("115，黑色，XL，1件"),
+                              child: Text(controller.selectAttr.value),
                             )
                           ],
                         ),

@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-19 00:16:02
+ * @LastEditTime: 2024-03-19 16:35:25
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -37,6 +37,10 @@ class ProductDetailController extends GetxController {
     {"id": 2, "title": "规格参数"}
   ];
   RxInt selectedSubTabsIndex = 1.obs;
+  // 保存筛选属性值
+  RxString selectAttr = "".obs;
+  // 购买数量
+  RxInt buyNum = 1.obs;
 
   @override
   void onInit() {
@@ -128,7 +132,8 @@ class ProductDetailController extends GetxController {
       var pDetail = PcontentModel.fromJson(response.data);
       productDetail.value = pDetail.result!;
       productDetailAttr.value = productDetail.value.attr!;
-      initAttr(productDetailAttr);
+      initAttr(productDetailAttr); // 初始化attr
+      getAttr(); // 获取商品属性
       update();
     }
   }
@@ -146,6 +151,7 @@ class ProductDetailController extends GetxController {
     }
   }
 
+  //attr属性变化
   changeAttr(cate, title) {
     for (var i = 0; i < productDetailAttr.length; i++) {
       if (productDetailAttr[i].cate == cate) {
@@ -158,5 +164,32 @@ class ProductDetailController extends GetxController {
       }
     }
     update();
+  }
+
+  //获取attr属性
+  getAttr() {
+    List tempList = [];
+    for (var i = 0; i < productDetailAttr.length; i++) {
+      for (var j = 0; j < productDetailAttr[i].attrList!.length; j++) {
+        if (productDetailAttr[i].attrList![j]["checked"]) {
+          tempList.add(productDetailAttr[i].attrList![j]["title"]);
+        }
+      }
+    }
+    selectAttr.value = tempList.join(",");
+  }
+
+  // 增加购买数量
+  incBuyNum() {
+    buyNum.value++;
+    update();
+  }
+
+  // 减少购买数量
+  decBuyNum() {
+    if (buyNum.value > 1) {
+      buyNum.value--;
+      update();
+    }
   }
 }
