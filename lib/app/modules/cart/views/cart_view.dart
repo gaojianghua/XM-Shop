@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:26:56
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-19 14:04:44
+ * @LastEditTime: 2024-03-20 15:44:30
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -13,8 +13,11 @@ import 'package:xmshop/app/services/screenAdapter.dart';
 
 import '../controllers/cart_controller.dart';
 
-class CartView extends GetView<CartController> {
-  const CartView({Key? key}) : super(key: key);
+// 注意CartView如果在多个地方调用，需要手动获取CartController实例。
+class CartView extends GetView {
+  @override
+  final CartController controller = Get.put(CartController());
+  CartView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,87 +28,108 @@ class CartView extends GetView<CartController> {
         centerTitle: true,
         actions: [
           TextButton(
-            onPressed: () {
-              
-            },
-            child: Text(
-              "编辑"
-            ),
+            onPressed: () {},
+            child: const Text("编辑"),
           )
         ],
       ),
-      body: Stack(
-        children: [
-          ListView(
-            children: const [
-              CartItemView()
-            ],
-          ),
-          Positioned(
-            left: 0,
-            bottom: 0,
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.only(
-                  left: ScreenAdapter.width(20),
-                  right: ScreenAdapter.width(20)),
-              width: double.infinity,
-              height: ScreenAdapter.height(190),
-              decoration: BoxDecoration(
-                  border: Border(
-                      top: BorderSide(
-                          color: const Color.fromARGB(178, 240, 236, 236),
-                          width: ScreenAdapter.height(2))),
-                  color: Colors.white),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+      body: GetBuilder<CartController>(
+          initState: (state) {
+            controller.getCartList();
+          },
+          init: controller,
+          builder: (controller) {
+            return controller.cartList.isNotEmpty
+                ? Stack(
                     children: [
-                      Checkbox(
-                          checkColor: Colors.white, // 修改勾选标记的颜色
-                          activeColor: Colors.red, // 修改 Checkbox 的填充颜色
-                          shape: const CircleBorder(),
-                          materialTapTargetSize: MaterialTapTargetSize
-                              .shrinkWrap, // 去除 Checkbox 的默认内边距
-                          visualDensity: const VisualDensity(
-                              horizontal: -4,
-                              vertical: -4), // 调整 Checkbox 的视觉密度
-                          value: true,
-                          onChanged: (value) {}),
-                      Text("全选")
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text("合计："),
-                      Text(
-                        "￥99.9",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(68),
-                            color: Colors.red),
+                      ListView(
+                        padding:
+                            EdgeInsets.only(bottom: ScreenAdapter.height(200)),
+                        children: controller.cartList.map((value) {
+                          return CartItemView(value);
+                        }).toList(),
                       ),
-                      SizedBox(width: ScreenAdapter.width(30)),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color.fromRGBO(255, 165, 0, 0.9)),
-                              foregroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12)))),
-                          onPressed: () {},
-                          child: Text("结算"))
+                      Positioned(
+                        left: 0,
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: ScreenAdapter.width(20),
+                              right: ScreenAdapter.width(20)),
+                          width: double.infinity,
+                          height: ScreenAdapter.height(190),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  top: BorderSide(
+                                      color: const Color.fromARGB(
+                                          178, 240, 236, 236),
+                                      width: ScreenAdapter.height(2))),
+                              color: Colors.white),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                      checkColor: Colors.white, // 修改勾选标记的颜色
+                                      activeColor:
+                                          Colors.red, // 修改 Checkbox 的填充颜色
+                                      shape: const CircleBorder(),
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize
+                                              .shrinkWrap, // 去除 Checkbox 的默认内边距
+                                      visualDensity: const VisualDensity(
+                                          horizontal: -4,
+                                          vertical: -4), // 调整 Checkbox 的视觉密度
+                                      value: controller.allChecked.value,
+                                      onChanged: (value) {
+                                        controller.checkAllCartItem(value);
+                                      }),
+                                      InkWell(
+                                        onTap: () {
+                                          controller.checkAllCartItem(!controller.allChecked.value);
+                                        },
+                                        child: const Text("全选"),
+                                      )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text("合计："),
+                                  Text(
+                                    "￥99.9",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(68),
+                                        color: Colors.red),
+                                  ),
+                                  SizedBox(width: ScreenAdapter.width(30)),
+                                  ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  const Color.fromRGBO(
+                                                      255, 165, 0, 0.9)),
+                                          foregroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12)))),
+                                      onPressed: () {},
+                                      child: Text("结算"))
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   )
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+                : const Center(child: Text("购物车空空的"));
+          }),
     );
   }
 }

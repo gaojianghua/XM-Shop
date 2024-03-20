@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-19 16:27:22
+ * @LastEditTime: 2024-03-20 14:44:40
  * @Description: file content
  */
 import 'dart:async';
@@ -21,16 +21,6 @@ import '../controllers/product_detail_controller.dart';
 
 class ProductDetailView extends GetView<ProductDetailController> {
   const ProductDetailView({Key? key}) : super(key: key);
-
-  void _addCart() {
-    controller.getAttr();
-    Get.back();
-  }
-
-  void _buy() {
-    controller.getAttr();
-    Get.back();
-  }
 
   // 显示商品属性弹框
   // action: 1/点击的筛选，2/点击的加入购物车，3/点击的立即购买
@@ -137,7 +127,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                               borderRadius:
                                                   BorderRadius.circular(12)))),
                                   onPressed: () {
-                                    _addCart();
+                                    controller.addCart();
                                   },
                                   child: const Text("加入购物车"),
                                 ),
@@ -160,7 +150,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                               borderRadius:
                                                   BorderRadius.circular(12)))),
                                   onPressed: () {
-                                    _buy();
+                                    controller.buy();
                                   },
                                   child: const Text("立即购买"),
                                 ),
@@ -189,10 +179,10 @@ class ProductDetailView extends GetView<ProductDetailController> {
                                   onPressed: () {
                                     if (action == 2) {
                                       //加入购物车
-                                      _addCart();
+                                      controller.addCart();
                                     } else if (action == 3) {
                                       //立即购买
-                                      _buy();
+                                      controller.buy();
                                     }
                                   },
                                   child: const Text("确定"),
@@ -460,16 +450,20 @@ class ProductDetailView extends GetView<ProductDetailController> {
             SizedBox(
               width: ScreenAdapter.width(200),
               height: ScreenAdapter.height(160),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.shopping_cart),
-                  Text(
-                    "购物车",
-                    style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
-                  )
-                ],
-              ),
+              child: InkWell(
+                  onTap: () {
+                    Get.toNamed("/cart");
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.shopping_cart),
+                      Text(
+                        "购物车",
+                        style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
+                      )
+                    ],
+                  )),
             ),
             Expanded(
               flex: 1,

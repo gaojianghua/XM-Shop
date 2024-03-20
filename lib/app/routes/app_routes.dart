@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:18:46
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-13 17:33:54
+ * @LastEditTime: 2024-03-20 14:46:26
  * @Description: file content
  */
 part of 'app_pages.dart';
@@ -22,4 +22,5 @@ abstract class _Paths {
   static const PRODUCT_LIST = '/product-list';
   static const SEARCH = '/search';
   static const PRODUCT_DETAIL = '/product-detail';
+  static const Cart = '/cart';
 }

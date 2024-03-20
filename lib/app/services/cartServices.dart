@@ -4,7 +4,7 @@ import '../models/pcontent_model.dart';
 class CartServices {
   //增加购物车
   static addCart(
-      PcontentItemModel pcontent, String selectedAttr, int buyNum) async {
+      PcontentItemModel pcontent, String selectAttr, int buyNum) async {
     /*
         1、获取本地存储的cartList数据
         2、判断cartList是否有数据
@@ -25,7 +25,7 @@ class CartServices {
                   {"_id": "1", 
                     "title": "磨砂牛皮男休闲鞋-有属性", 
                     "price": 688, 
-                    "selectedAttr": "牛皮 ,系带,黄色", 
+                    "selectAttr": "牛皮 ,系带,黄色", 
                     "count": 4, 
                     "pic":"public\upload\RinsvExKu7Ed-ocs_7W1DxYO.png",
                     "checked": true
@@ -33,7 +33,7 @@ class CartServices {
                     {"_id": "2", 
                     "title": "磨xxxxxxxxxxxxx", 
                     "price": 688, 
-                    "selectedAttr": "牛皮 ,系带,黄色", 
+                    "selectAttr": "牛皮 ,系带,黄色", 
                     "count": 2, 
                     "pic":"public\upload\RinsvExKu7Ed-ocs_7W1DxYO.png",
                     "checked": true
@@ -46,12 +46,12 @@ class CartServices {
     List? cartListData = await Storage.getData("cartList");
     if (cartListData != null) {
       var hasData = cartListData.any((v) {
-        return v["_id"] == pcontent.sId && v["selectedAttr"] == selectedAttr;
+        return v["_id"] == pcontent.sId && v["selectAttr"] == selectAttr;
       });
       if (hasData) {
         for (var i = 0; i < cartListData.length; i++) {
           if (cartListData[i]["_id"] == pcontent.sId &&
-              cartListData[i]["selectedAttr"] == selectedAttr) {
+              cartListData[i]["selectAttr"] == selectAttr) {
             cartListData[i]["count"] += buyNum;
           }
         }
@@ -61,7 +61,7 @@ class CartServices {
           "_id": pcontent.sId,
           "title": pcontent.title,
           "price": pcontent.price,
-          "selectedAttr": selectedAttr,
+          "selectAttr": selectAttr,
           "count": buyNum,
           "pic": pcontent.pic,
           "checked": true
@@ -74,7 +74,7 @@ class CartServices {
         "_id": pcontent.sId,
         "title": pcontent.title,
         "price": pcontent.price,
-        "selectedAttr": selectedAttr,
+        "selectAttr": selectAttr,
         "count": buyNum,
         "pic": pcontent.pic,
         "checked": true
@@ -93,6 +93,10 @@ class CartServices {
     }
   }
 
+  //保存数据
+  static void setCartList(cartListData) async {
+      await Storage.setData("cartList", cartListData);
+  }
 
   // 获取选中的CartList数据
   static getCheckedCartData() async {

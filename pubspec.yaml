@@ -2,13 +2,13 @@ name: xmshop
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=3.1.3 <4.0.0'
+environment:
+  sdk: ">=3.1.3 <4.0.0"
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
   get: 4.6.6
-  flutter: 
+  flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
   flutter_swiper_view: ^1.1.8
@@ -17,15 +17,15 @@ dependencies:
   shared_preferences: ^2.2.2
   flutter_html: ^3.0.0-beta.2
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter:
   uses-material-design: true
   fonts:
-    - family: ityingIcon   #指定一个字体名 根据自己的需求定义
+    - family: ityingIcon #指定一个字体名 根据自己的需求定义
       fonts:
         - asset: assets/fonts/iconfont.ttf
   assets:
@@ -41,3 +41,12 @@ flutter:
     - assets/images/service.png
     - assets/images/2.0x/service.png
     - assets/images/3.0x/service.png
+    - assets/images/user.png
+    - assets/images/2.0x/user.png
+    - assets/images/3.0x/user.png
+    - assets/images/user_ad1.png
+    - assets/images/2.0x/user_ad1.png
+    - assets/images/3.0x/user_ad1.png 
+    - assets/images/user_ad2.png
+    - assets/images/2.0x/user_ad2.png
+    - assets/images/3.0x/user_ad2.png

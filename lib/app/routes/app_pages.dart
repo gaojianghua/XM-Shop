@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:xmshop/app/modules/cart/views/cart_view.dart';
 
 import '../modules/productDetail/bindings/product_detail_binding.dart';
 import '../modules/productDetail/views/product_detail_view.dart';
@@ -46,6 +47,10 @@ class AppPages {
       name: _Paths.PRODUCT_DETAIL,
       page: () => const ProductDetailView(),
       binding: ProductDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.Cart,
+      page: () => CartView(),    
     ),
   ];
 }

@@ -2,12 +2,14 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-19 16:35:25
+ * @LastEditTime: 2024-03-20 10:18:45
  * @Description: file content
  */
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/models/pcontent_model.dart';
+import 'package:xmshop/app/services/cartServices.dart';
 import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
@@ -191,5 +193,17 @@ class ProductDetailController extends GetxController {
       buyNum.value--;
       update();
     }
+  }
+  // 加入购物车
+  void addCart() {
+    getAttr();
+    CartServices.addCart(productDetail.value, selectAttr.value, buyNum.value);
+    Get.back();
+    Get.snackbar("提示", "加入购物车成功");
+  }
+  // 立即购买
+  void buy() {
+    getAttr();
+    Get.back();
   }
 }
