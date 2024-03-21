@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:25:45
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-20 14:42:57
+ * @LastEditTime: 2024-03-21 13:54:33
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class TabsController extends GetxController {
     const CategoryView(),
     const GiveView(),
     CartView(),
-    const UserView()
+    UserView()
   ];
 
   @override

@@ -90,6 +90,7 @@ class HomeView extends GetView<HomeController> {
       height: ScreenAdapter.height(682),
       child: Obx(() => Swiper(
             itemCount: controller.swiperList.length,
+            physics: const NeverScrollableScrollPhysics(), // 禁止滑动
             itemBuilder: (c, i) {
               return Image.network(
                   HttpsClient.replaceUri(controller.swiperList[i].pic),

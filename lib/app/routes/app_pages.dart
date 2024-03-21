@@ -1,6 +1,20 @@
 import 'package:get/get.dart';
-import 'package:xmshop/app/modules/cart/views/cart_view.dart';
 
+import '../modules/account/codeLoginStepOne/bindings/code_login_step_one_binding.dart';
+import '../modules/account/codeLoginStepOne/views/code_login_step_one_view.dart';
+import '../modules/account/codeLoginStepTwo/bindings/code_login_step_two_binding.dart';
+import '../modules/account/codeLoginStepTwo/views/code_login_step_two_view.dart';
+import '../modules/account/onStepLogin/bindings/on_step_login_binding.dart';
+import '../modules/account/onStepLogin/views/on_step_login_view.dart';
+import '../modules/account/passLogin/bindings/pass_login_binding.dart';
+import '../modules/account/passLogin/views/pass_login_view.dart';
+import '../modules/account/registerStepOne/bindings/register_step_one_binding.dart';
+import '../modules/account/registerStepOne/views/register_step_one_view.dart';
+import '../modules/account/registerStepThree/bindings/register_step_three_binding.dart';
+import '../modules/account/registerStepThree/views/register_step_three_view.dart';
+import '../modules/account/registerStepTwo/bindings/register_step_two_binding.dart';
+import '../modules/account/registerStepTwo/views/register_step_two_view.dart';
+import '../modules/cart/views/cart_view.dart';
 import '../modules/productDetail/bindings/product_detail_binding.dart';
 import '../modules/productDetail/views/product_detail_view.dart';
 import '../modules/productList/bindings/product_list_binding.dart';
@@ -50,7 +64,42 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.Cart,
-      page: () => CartView(),    
+      page: () => CartView(),
+    ),
+    GetPage(
+      name: _Paths.CODE_LOGIN_STEP_ONE,
+      page: () => const CodeLoginStepOneView(),
+      binding: CodeLoginStepOneBinding(),
+    ),
+    GetPage(
+      name: _Paths.CODE_LOGIN_STEP_TWO,
+      page: () => const CodeLoginStepTwoView(),
+      binding: CodeLoginStepTwoBinding(),
+    ),
+    GetPage(
+      name: _Paths.ON_STEP_LOGIN,
+      page: () => const OnStepLoginView(),
+      binding: OnStepLoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.PASS_LOGIN,
+      page: () => const PassLoginView(),
+      binding: PassLoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_STEP_ONE,
+      page: () => const RegisterStepOneView(),
+      binding: RegisterStepOneBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_STEP_TWO,
+      page: () => const RegisterStepTwoView(),
+      binding: RegisterStepTwoBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_STEP_THREE,
+      page: () => const RegisterStepThreeView(),
+      binding: RegisterStepThreeBinding(),
     ),
   ];
 }
