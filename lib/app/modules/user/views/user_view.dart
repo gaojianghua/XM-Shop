@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:27:05
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-21 14:33:39
+ * @LastEditTime: 2024-03-22 14:18:21
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/services/ityingFonts.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
+import 'package:xmshop/app/widget/loginBotton.dart';
 
 import '../controllers/user_controller.dart';
 
@@ -83,37 +84,74 @@ class UserView extends GetView<UserController> {
       body: ListView(
         padding: EdgeInsets.all(ScreenAdapter.height(20)),
         children: [
-          SizedBox(
-            child: Row(
-              children: [
-                SizedBox(width: ScreenAdapter.width(40)),
-                SizedBox(
-                  height: ScreenAdapter.height(150),
-                  width: ScreenAdapter.height(150),
-                  child: CircleAvatar(
-                    radius: ScreenAdapter.width(75),
-                    backgroundImage: const AssetImage("assets/images/user.png"),
+          //用户头像 登录注册
+          Obx(() => controller.isLogin.value
+              ? SizedBox(
+                  child: Row(
+                    children: [
+                      SizedBox(width: ScreenAdapter.width(40)),
+                      SizedBox(
+                        height: ScreenAdapter.height(150),
+                        width: ScreenAdapter.height(150),
+                        child: CircleAvatar(
+                          radius: ScreenAdapter.width(75),
+                          backgroundImage:
+                              const AssetImage("assets/images/user.png"),
+                        ),
+                      ),
+                      SizedBox(width: ScreenAdapter.width(40)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${controller.userList[0]["username"]}",
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(46))),
+                          SizedBox(height: ScreenAdapter.height(20)),
+                          Text("普通会员",
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fontSize(46)))
+                        ],
+                      ),
+                      SizedBox(width: ScreenAdapter.width(40)),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: ScreenAdapter.fontSize(34),
+                        color: Colors.black54,
+                      )
+                    ],
                   ),
-                ),
-                SizedBox(width: ScreenAdapter.width(40)),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed("/code-login-step-one");
-                  },
-                  child: Text(
-                    "登录/注册",
-                    style: TextStyle(fontSize: ScreenAdapter.fontSize(46)),
-                  ),
-                ),
-                SizedBox(width: ScreenAdapter.width(40)),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: ScreenAdapter.fontSize(34),
-                  color: Colors.black54,
                 )
-              ],
-            ),
-          ),
+              : SizedBox(
+                  child: Row(
+                    children: [
+                      SizedBox(width: ScreenAdapter.width(40)),
+                      SizedBox(
+                        height: ScreenAdapter.height(150),
+                        width: ScreenAdapter.height(150),
+                        child: CircleAvatar(
+                          radius: ScreenAdapter.width(75),
+                          backgroundImage:
+                              const AssetImage("assets/images/user.png"),
+                        ),
+                      ),
+                      SizedBox(width: ScreenAdapter.width(40)),
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed("/code-login-step-one");
+                        },
+                        child: Text("登录/注册",
+                            style: TextStyle(
+                                fontSize: ScreenAdapter.fontSize(46))),
+                      ),
+                      SizedBox(width: ScreenAdapter.width(40)),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: ScreenAdapter.fontSize(34),
+                        color: Colors.black54,
+                      )
+                    ],
+                  ),
+                )),
           Container(
             height: ScreenAdapter.height(200),
             margin: EdgeInsets.only(top: ScreenAdapter.height(50)),
@@ -411,13 +449,20 @@ class UserView extends GetView<UserController> {
                               borderRadius: BorderRadius.circular(
                                   ScreenAdapter.width(20))),
                         ),
-                      ),
+                      )
                     ],
                   ),
-                )
+                ),
+                
               ],
             ),
-          )
+          ),
+          LoginButton(
+                  text: "退出登录",
+                  onPressed: () {
+                    controller.loginOut();
+                  },
+                )
         ],
       ),
     );

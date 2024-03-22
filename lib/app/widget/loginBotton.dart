@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 16:35:16
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-21 16:35:38
+ * @LastEditTime: 2024-03-22 09:59:17
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: ScreenAdapter.height(80)),
+      margin: EdgeInsets.only(top: ScreenAdapter.height(40)),
       height: ScreenAdapter.height(140),
       child: ElevatedButton(
         style: ButtonStyle(

@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 14:15:34
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-21 17:07:46
+ * @LastEditTime: 2024-03-22 10:55:09
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -38,7 +38,18 @@ class CodeLoginStepOneView extends GetView<CodeLoginStepOneController> {
           const UserAgreement(),
           LoginButton(text: "获取验证码", onPressed: () {
             Get.toNamed("/code-login-step-two");
-          },)
+          },),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(onPressed: () {
+                Get.offAndToNamed("/register-step-one");
+              }, child: const Text("新用户注册")),
+              TextButton(onPressed: () {
+                Get.offAndToNamed("/pass-login");
+              }, child: const Text("其他登录方式"))
+            ],
+          )
         ],
       ),
     );

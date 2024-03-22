@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:25:45
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-21 13:54:33
+ * @LastEditTime: 2024-03-22 13:51:14
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ import 'package:xmshop/app/modules/user/views/user_view.dart';
 
 class TabsController extends GetxController {
   RxInt currentIndex = 0.obs;
-  PageController pageController = PageController(initialPage: 0);
+  PageController pageController=Get.arguments!=null?PageController(initialPage:Get.arguments["initialPage"]): PageController(initialPage:0);
   final List<Widget> pages = [
     const HomeView(),
     const CategoryView(),
@@ -26,6 +26,10 @@ class TabsController extends GetxController {
 
   @override
   void onInit() {
+    if(Get.arguments!=null){
+      currentIndex.value=Get.arguments["initialPage"];
+      update();
+    }
     super.onInit();
   }
 
