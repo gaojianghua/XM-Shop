@@ -6,11 +6,13 @@
  * @Description: file content
  */
 import 'package:get/get.dart';
+import 'package:xmshop/app/models/user_model.dart';
 import 'package:xmshop/app/services/userServices.dart';
 
 class UserController extends GetxController {
   RxBool isLogin = false.obs;
-  RxList userList = [].obs;
+  // RxList userList = [].obs;
+  var userInfo=UserModel().obs;
   @override
   void onInit() {
     super.onInit();
@@ -27,14 +29,14 @@ class UserController extends GetxController {
     isLogin.value = tempLoginState;
     var tempList = await UserServices.getUserInfo();
     if (tempList.isNotEmpty) {
-      userList.value = tempList;
+      userInfo.value = UserModel.fromJson(tempList[0]);
     }
   }
 
   loginOut() {
     UserServices.loginOut();
     isLogin.value = false;
-    userList.value = [];
+    userInfo.value = UserModel();
     update();
   }
 }

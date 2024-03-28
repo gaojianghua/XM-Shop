@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:27:05
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-22 14:18:21
+ * @LastEditTime: 2024-03-23 11:31:58
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -103,7 +103,7 @@ class UserView extends GetView<UserController> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("${controller.userList[0]["username"]}",
+                          Text("${controller.userInfo.value.username}",
                               style: TextStyle(
                                   fontSize: ScreenAdapter.fontSize(46))),
                           SizedBox(height: ScreenAdapter.height(20)),
@@ -152,108 +152,192 @@ class UserView extends GetView<UserController> {
                     ],
                   ),
                 )),
-          Container(
-            height: ScreenAdapter.height(200),
-            margin: EdgeInsets.only(top: ScreenAdapter.height(50)),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "-",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(80),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "米金",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(34),
-                            color: Colors.black45),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "-",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(80),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "优惠券",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(34),
-                            color: Colors.black45),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "-",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(80),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "红包",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(34),
-                            color: Colors.black45),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "-",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(80),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "最高额度",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(34),
-                            color: Colors.black45),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Icon(Icons.bookmarks_outlined),
-                      Text(
-                        "钱包",
-                        style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(34),
-                            color: Colors.black45),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+          // 用户资金信息
+          Obx(
+            () => controller.isLogin.value == true
+                ? Container(
+                    height: ScreenAdapter.height(200),
+                    margin: EdgeInsets.only(top: ScreenAdapter.height(50)),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${controller.userInfo.value.gold}",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(80),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "米金",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(34),
+                                    color: Colors.black45),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${controller.userInfo.value.coupon}",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(80),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "优惠券",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(34),
+                                    color: Colors.black45),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${controller.userInfo.value.redPacket}",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(80),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "红包",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(34),
+                                    color: Colors.black45),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${controller.userInfo.value.quota}",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(80),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "最高额度",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(34),
+                                    color: Colors.black45),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Icon(Icons.bookmarks_outlined),
+                              Text(
+                                "钱包",
+                                style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(34),
+                                    color: Colors.black45),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                : Container(
+                    height: ScreenAdapter.height(200),
+                    margin: EdgeInsets.only(top: ScreenAdapter.height(50)),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "-",
+                                  style: TextStyle(
+                                    fontSize: ScreenAdapter.fontSize(80),
+                                  ),
+                                ),
+                                Text("米金",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(34),
+                                        color: Colors.black45)),
+                              ],
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "-",
+                                  style: TextStyle(
+                                      fontSize: ScreenAdapter.fontSize(80)),
+                                ),
+                                Text("优惠券",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(34),
+                                        color: Colors.black45))
+                              ],
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("-",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(80))),
+                                Text("红包",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(34),
+                                        color: Colors.black45))
+                              ],
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("-",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(80))),
+                                Text("最高额度",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(34),
+                                        color: Colors.black45))
+                              ],
+                            )),
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Icon(Icons.bookmarks_outlined),
+                                Text("钱包",
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapter.fontSize(34),
+                                        color: Colors.black45))
+                              ],
+                            ))
+                      ],
+                    )),
           ),
           // 广告牌
           Container(
@@ -453,16 +537,15 @@ class UserView extends GetView<UserController> {
                     ],
                   ),
                 ),
-                
               ],
             ),
           ),
           LoginButton(
-                  text: "退出登录",
-                  onPressed: () {
-                    controller.loginOut();
-                  },
-                )
+            text: "退出登录",
+            onPressed: () {
+              controller.loginOut();
+            },
+          )
         ],
       ),
     );

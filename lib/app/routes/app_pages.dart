@@ -15,6 +15,8 @@ import '../modules/account/registerStepThree/views/register_step_three_view.dart
 import '../modules/account/registerStepTwo/bindings/register_step_two_binding.dart';
 import '../modules/account/registerStepTwo/views/register_step_two_view.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/checkout/bindings/checkout_binding.dart';
+import '../modules/checkout/views/checkout_view.dart';
 import '../modules/productDetail/bindings/product_detail_binding.dart';
 import '../modules/productDetail/views/product_detail_view.dart';
 import '../modules/productList/bindings/product_list_binding.dart';
@@ -100,6 +102,11 @@ class AppPages {
       name: _Paths.REGISTER_STEP_THREE,
       page: () => const RegisterStepThreeView(),
       binding: RegisterStepThreeBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHECKOUT,
+      page: () => const CheckoutView(),
+      binding: CheckoutBinding(),
     ),
   ];
 }

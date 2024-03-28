@@ -2,12 +2,13 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 14:15:34
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-22 10:55:09
+ * @LastEditTime: 2024-03-23 10:06:13
  * @Description: file content
  */
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:xmshop/app/models/message.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 import 'package:xmshop/app/widget/input.dart';
 import 'package:xmshop/app/widget/loginBotton.dart';
@@ -36,8 +37,17 @@ class CodeLoginStepOneView extends GetView<CodeLoginStepOneController> {
             onChanged: (value) {},
           ),
           const UserAgreement(),
-          LoginButton(text: "获取验证码", onPressed: () {
-            Get.toNamed("/code-login-step-two");
+          LoginButton(text: "获取验证码", onPressed: () async {
+            if (!GetUtils.isPhoneNumber(controller.telController.text) || controller.telController.text.length != 11) {
+              Get.snackbar("提示信息", "手机号格式不合法");
+            }else {
+              MessageModel result = await controller.sendCode();
+              if (result.success) {
+                Get.toNamed("/code-login-step-two");
+              }else{
+                Get.snackbar("提示信息", "手机号格式不合法");
+              }
+            }
           },),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

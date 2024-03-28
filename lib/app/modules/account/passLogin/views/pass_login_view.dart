@@ -2,12 +2,13 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 14:16:16
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-22 09:57:56
+ * @LastEditTime: 2024-03-23 09:44:39
  * @Description: file content
  */
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:xmshop/app/models/message.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 import 'package:xmshop/app/widget/input.dart';
 import 'package:xmshop/app/widget/loginBotton.dart';
@@ -40,8 +41,23 @@ class PassLoginView extends GetView<PassLoginController> {
             onChanged: (value) {},
           ),
           const UserAgreement(),
-          LoginButton(text: "获取验证码", onPressed: () {
-            Get.toNamed("/code-login-step-two");
+          LoginButton(text: "登录", onPressed: () async {
+            if (!GetUtils.isPhoneNumber(controller.telController.text) ||
+                    controller.telController.text.length != 11) {
+                  Get.snackbar("提示信息!", "手机号格式不合法");
+                } else if (controller.passController.text.length < 6) {
+                  Get.snackbar("提示信息!", "密码长度不能小于6位");
+                } else {
+                  MessageModel result = await controller.doLogin();
+                  if(result.success){
+                      //执行跳转  回到根
+                      Get.offAllNamed("/tabs",arguments: {
+                        "initialPage":4   //注册完成后会加载tabs第五个页面
+                      });
+                  }else{
+                    Get.snackbar("提示信息!",result.message);
+                  }
+                }
           },),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

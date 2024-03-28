@@ -2,12 +2,13 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 17:05:55
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-21 17:48:26
+ * @LastEditTime: 2024-03-23 10:41:35
  * @Description: file content
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:xmshop/app/models/message.dart';
 import 'package:xmshop/app/widget/loginBotton.dart';
 import '../../../../services/screenAdapter.dart';
 import '../../../../widget/logo.dart';
@@ -61,8 +62,15 @@ class CodeLoginStepTwoView extends GetView<CodeLoginStepTwoController> {
               animationDuration: const Duration(milliseconds: 300),
               enableActiveFill: true,
               controller: controller.editingController, //TextFiled控制器
-              onCompleted: (v) {
-                print("Completed");
+              onCompleted: (v) async {
+                // 隐藏键盘
+                FocusScope.of(context).requestFocus(FocusNode());
+                MessageModel result = await controller.doLogin();
+                if (result.success) {
+                  Get.offAllNamed("/tabs", arguments: {"initialPage": 4});
+                } else {
+                  Get.snackbar("提示信息", result.message);
+                }
               },
               onChanged: (value) {
                 print(value);
@@ -78,8 +86,14 @@ class CodeLoginStepTwoView extends GetView<CodeLoginStepTwoController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(onPressed: () {}, child: Text("重新发送验证码")),
-                TextButton(onPressed: () {}, child: Text("帮助")),
+                Obx(()=>controller.seconds.value==0?
+                TextButton(onPressed: () {
+                  controller.sendCode();
+                }, child: const Text("重新发送验证码")):
+                TextButton(onPressed: null, child: Text("${controller.seconds.value}秒后重发送"))
+                
+                ),               
+                TextButton(onPressed: () {}, child: const Text("帮助")),
               ],
             ),
           ),

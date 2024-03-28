@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
-import 'package:xmshop/app/widget/loginBotton.dart';
 import 'package:xmshop/app/widget/logo.dart';
 
 import '../controllers/register_step_two_controller.dart';
@@ -106,22 +105,7 @@ class RegisterStepTwoView extends GetView<RegisterStepTwoController> {
                 TextButton(onPressed: () {}, child: Text("帮助")),
               ],
             ),
-          ),
-          LoginButton(
-              text: "下一步",
-              onPressed: () async {
-                // 隐藏键盘
-                FocusScope.of(context).requestFocus(FocusNode());
-                var flag = await controller.validateCode();
-                if (flag) {
-                  Get.toNamed("/register-step-three", arguments: {
-                    "tel": controller.tel,
-                    "code": controller.editingController.text
-                  });
-                } else {
-                  Get.snackbar("提示信息!", "验证码输入错误");
-                }
-              })
+          )
         ],
       ),
     );
