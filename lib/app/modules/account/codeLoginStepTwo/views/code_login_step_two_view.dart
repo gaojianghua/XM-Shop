@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 17:05:55
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-23 10:41:35
+ * @LastEditTime: 2024-04-01 16:35:13
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -67,7 +67,8 @@ class CodeLoginStepTwoView extends GetView<CodeLoginStepTwoController> {
                 FocusScope.of(context).requestFocus(FocusNode());
                 MessageModel result = await controller.doLogin();
                 if (result.success) {
-                  Get.offAllNamed("/tabs", arguments: {"initialPage": 4});
+                  // Get.offAllNamed("/tabs", arguments: {"initialPage": 4});
+                  Get.back();
                 } else {
                   Get.snackbar("提示信息", result.message);
                 }

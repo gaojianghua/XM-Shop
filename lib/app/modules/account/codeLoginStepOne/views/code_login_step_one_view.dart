@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 14:15:34
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-23 10:06:13
+ * @LastEditTime: 2024-04-01 16:13:20
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -43,7 +43,9 @@ class CodeLoginStepOneView extends GetView<CodeLoginStepOneController> {
             }else {
               MessageModel result = await controller.sendCode();
               if (result.success) {
-                Get.toNamed("/code-login-step-two");
+                Get.offAndToNamed("/code-login-step-two", arguments: {
+                  "tel": controller.telController.text
+                });
               }else{
                 Get.snackbar("提示信息", "手机号格式不合法");
               }

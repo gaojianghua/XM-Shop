@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 17:05:55
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-23 10:10:53
+ * @LastEditTime: 2024-04-01 16:37:07
  * @Description: file content
  */
 import 'dart:async';
@@ -11,11 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/models/message.dart';
+import 'package:xmshop/app/modules/user/controllers/user_controller.dart';
 import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/storage.dart';
 
 class CodeLoginStepTwoController extends GetxController {
   final TextEditingController editingController = TextEditingController();
+  UserController userController = Get.find<UserController>();
   HttpsClient httpsClient = HttpsClient();
   String tel = Get.arguments["tel"];
   RxInt seconds = 10.obs;
@@ -28,6 +30,7 @@ class CodeLoginStepTwoController extends GetxController {
 
   @override
   void onClose() {
+    userController.getUserInfo();
     super.onClose();
   }
 

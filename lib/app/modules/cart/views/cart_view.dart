@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:26:56
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-01 10:02:05
+ * @LastEditTime: 2024-04-01 18:30:50
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class CartView extends GetView {
                                                       BorderRadius.circular(
                                                           12)))),
                                       onPressed: () {
-                                        Get.toNamed("/checkout");
+                                        controller.checkout();
                                       },
                                       child: const Text("结算"))
                                 ],

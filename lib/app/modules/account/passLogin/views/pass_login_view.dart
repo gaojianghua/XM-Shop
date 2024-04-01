@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 14:16:16
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-23 09:44:39
+ * @LastEditTime: 2024-04-01 16:41:24
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -50,10 +50,7 @@ class PassLoginView extends GetView<PassLoginController> {
                 } else {
                   MessageModel result = await controller.doLogin();
                   if(result.success){
-                      //执行跳转  回到根
-                      Get.offAllNamed("/tabs",arguments: {
-                        "initialPage":4   //注册完成后会加载tabs第五个页面
-                      });
+                      Get.back();
                   }else{
                     Get.snackbar("提示信息!",result.message);
                   }

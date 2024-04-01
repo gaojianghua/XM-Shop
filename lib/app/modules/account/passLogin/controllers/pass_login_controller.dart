@@ -1,12 +1,21 @@
+/*
+ * @Author: 高江华 g598670138@163.com
+ * @Date: 2024-03-21 14:16:16
+ * @LastEditors: 高江华
+ * @LastEditTime: 2024-04-01 16:44:59
+ * @Description: file content
+ */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/models/message.dart';
+import 'package:xmshop/app/modules/user/controllers/user_controller.dart';
 import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/storage.dart';
 
 class PassLoginController extends GetxController {
   TextEditingController telController = TextEditingController();
   TextEditingController passController = TextEditingController();
+  UserController userController = Get.find<UserController>();
   HttpsClient httpsClient = HttpsClient();
   @override
   void onInit() {
@@ -15,6 +24,7 @@ class PassLoginController extends GetxController {
 
   @override
   void onClose() {
+    userController.getUserInfo();
     super.onClose();
   }
 

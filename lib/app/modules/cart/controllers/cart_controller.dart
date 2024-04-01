@@ -2,11 +2,12 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-13 20:04:09
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-20 15:50:33
+ * @LastEditTime: 2024-04-01 18:32:06
  * @Description: file content
  */
 import 'package:get/get.dart';
 import 'package:xmshop/app/services/cartServices.dart';
+import 'package:xmshop/app/services/userServices.dart';
 
 class CartController extends GetxController {
 
@@ -95,5 +96,36 @@ class CartController extends GetxController {
       return true;
     }
     return false;
+  }
+
+  // 获取要结算的商品
+  getCheckOutData() {
+    List tempList = [];
+    for (var i = 0; i < cartList.length; i++) {
+      if (cartList[i]["checked"] == true) {
+        tempList.add(cartList[i]);
+      }
+    }
+    return tempList;
+  }
+
+  // 判断用户是否登录
+  Future<bool> isLogin() async {
+    return await UserServices.getUserLoginState();
+  }
+
+  checkout() async {
+    bool loginStatus = await isLogin();
+    List checkListData = getCheckOutData();
+    if (loginStatus) {
+      if (checkListData.isNotEmpty) {
+        Get.toNamed("/checkout");
+      }else {
+        Get.snackbar("提示", "购物车中没有要结算的商品");
+      }
+    }else {
+      Get.toNamed("code-login-step-one");
+      Get.snackbar("提示", "您还没有登录，请先登录");
+    }
   }
 }
