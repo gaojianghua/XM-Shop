@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:26:56
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-20 15:44:30
+ * @LastEditTime: 2024-04-01 10:02:05
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -71,7 +71,7 @@ class CartView extends GetView {
                             children: [
                               Row(
                                 children: [
-                                  Checkbox(
+                                  Obx(() => Checkbox(
                                       checkColor: Colors.white, // 修改勾选标记的颜色
                                       activeColor:
                                           Colors.red, // 修改 Checkbox 的填充颜色
@@ -85,13 +85,14 @@ class CartView extends GetView {
                                       value: controller.allChecked.value,
                                       onChanged: (value) {
                                         controller.checkAllCartItem(value);
-                                      }),
-                                      InkWell(
-                                        onTap: () {
-                                          controller.checkAllCartItem(!controller.allChecked.value);
-                                        },
-                                        child: const Text("全选"),
-                                      )
+                                      })),
+                                  InkWell(
+                                    onTap: () {
+                                      controller.checkAllCartItem(
+                                          !controller.allChecked.value);
+                                    },
+                                    child: const Text("全选"),
+                                  )
                                 ],
                               ),
                               Row(
@@ -100,7 +101,7 @@ class CartView extends GetView {
                                   Text(
                                     "￥99.9",
                                     style: TextStyle(
-                                        fontSize: ScreenAdapter.fontSize(68),
+                                        fontSize: ScreenAdapter.fontSize(58),
                                         color: Colors.red),
                                   ),
                                   SizedBox(width: ScreenAdapter.width(30)),

@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-26 10:16:42
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-28 10:10:43
+ * @LastEditTime: 2024-04-01 10:23:13
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -15,47 +15,41 @@ import '../controllers/checkout_controller.dart';
 class CheckoutView extends GetView<CheckoutController> {
   const CheckoutView({Key? key}) : super(key: key);
 
-
   Widget checkoutItem() {
     return Container(
+      padding: EdgeInsets.all(ScreenAdapter.height(20)),
       child: Row(
         children: [
           Container(
             alignment: Alignment.center,
-            width: ScreenAdapter.width(180),
-            height: ScreenAdapter.height(180),
+            width: ScreenAdapter.width(200),
+            height: ScreenAdapter.height(200),
             padding: EdgeInsets.all(ScreenAdapter.width(20)),
-            child: Image.network("https://gaojianghua.oss-cn-hangzhou.aliyuncs.com/0.jpg", fit: BoxFit.fitHeight),
+            child: Image.network(
+                "https://gaojianghua.oss-cn-hangzhou.aliyuncs.com/0.jpg",
+                fit: BoxFit.fitHeight),
           ),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "小米Pro",
-                  style: TextStyle(
-                    fontSize: ScreenAdapter.fontSize(42),
-                    fontWeight: FontWeight.bold
-                  )
-                ),
+                Text("小米Pro",
+                    style: TextStyle(
+                        fontSize: ScreenAdapter.fontSize(42),
+                        fontWeight: FontWeight.bold)),
                 SizedBox(height: ScreenAdapter.height(10)),
-                Text(
-                  "白色128G"
-                ),
+                Text("白色128G"),
                 SizedBox(height: ScreenAdapter.height(10)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "￥128",
-                      style: TextStyle(
-                        color: Colors.red
-                      ),
+                      style: TextStyle(color: Colors.red),
                     ),
                     Text(
                       "x2",
-                      style: TextStyle(
-                        color: Colors.black12
-                      ),
+                      style: TextStyle(color: Colors.black87),
                     )
                   ],
                 )
@@ -67,71 +61,175 @@ class CheckoutView extends GetView<CheckoutController> {
     );
   }
 
+  Widget body() {
+    return ListView(
+      padding: EdgeInsets.all(ScreenAdapter.width(40)),
+      children: [
+        Container(
+          padding: EdgeInsets.only(
+              top: ScreenAdapter.height(20), bottom: ScreenAdapter.height(20)),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
+          child: const ListTile(
+            leading: Icon(Icons.add_location),
+            title: Text("增加收货地址"),
+            trailing: Icon(Icons.navigate_next),
+          ),
+        ),
+        SizedBox(
+          height: ScreenAdapter.height(40),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+              top: ScreenAdapter.height(20), bottom: ScreenAdapter.height(20)),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
+          child: ListTile(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("张三 15257184434"),
+                SizedBox(height: ScreenAdapter.height(10)),
+                Text("藏龙东街藏龙星天地")
+              ],
+            ),
+            trailing: Icon(Icons.navigate_next),
+          ),
+        ),
+        SizedBox(
+          height: ScreenAdapter.height(40),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+              top: ScreenAdapter.height(20), bottom: ScreenAdapter.height(20)),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
+          child: Column(
+            children: [
+              checkoutItem(),
+              checkoutItem(),
+              checkoutItem(),
+              checkoutItem(),
+              checkoutItem(),
+              checkoutItem(),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: ScreenAdapter.height(40),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+              top: ScreenAdapter.height(20), bottom: ScreenAdapter.height(20)),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
+          child: Column(
+            children: [
+              const ListTile(
+                title: Text("运费"),
+                trailing: Wrap(
+                  children: [Text("包邮")],
+                ),
+              ),
+              ListTile(
+                title: Text("优惠券"),
+                trailing: Wrap(
+                  children: [Text("无可用"), Icon(Icons.navigate_next)],
+                ),
+              ),
+              ListTile(
+                title: Text("礼卡券"),
+                trailing: Wrap(
+                  children: [Text("无可用"), Icon(Icons.navigate_next)],
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: ScreenAdapter.height(40),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+              top: ScreenAdapter.height(20), bottom: ScreenAdapter.height(20)),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
+          child: Column(
+            children: [
+              const ListTile(
+                title: Text("发票"),
+                trailing: Wrap(
+                  children: [Icon(Icons.navigate_next)],
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget bottom() {
+    return Positioned(
+      left: 0,
+      bottom: 0,
+      right: 0,
+      child: Container(
+        padding: EdgeInsets.only(
+            left: ScreenAdapter.width(20), right: ScreenAdapter.width(20)),
+        width: double.infinity,
+        height: ScreenAdapter.height(190),
+        decoration: BoxDecoration(
+            border: Border(
+                top: BorderSide(
+                    color: const Color.fromARGB(178, 240, 236, 236),
+                    width: ScreenAdapter.height(2))),
+            color: Colors.white),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                const Text("共1件，合计："),
+                Text(
+                  "￥99.9",
+                  style: TextStyle(
+                      fontSize: ScreenAdapter.fontSize(58), color: Colors.red),
+                ),
+                SizedBox(width: ScreenAdapter.width(20)),
+              ],
+            ),
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color.fromRGBO(251, 72, 5, 0.9)),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)))),
+                onPressed: () {},
+                child: const Text("去付款"))
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text('确认订单'),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(ScreenAdapter.width(40)),
-        children: [
-          Container(
-            padding: EdgeInsets.only(
-                top: ScreenAdapter.height(20),
-                bottom: ScreenAdapter.height(20)),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
-            child: const ListTile(
-              leading: Icon(Icons.add_location),
-              title: Text("增加收货地址"),
-              trailing: Icon(Icons.navigate_next),
-            ),
-          ),
-          SizedBox(
-            height: ScreenAdapter.height(40),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-                top: ScreenAdapter.height(20),
-                bottom: ScreenAdapter.height(20)),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
-            child: ListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("张三 15257184434"),
-                  SizedBox(height: ScreenAdapter.height(10)),
-                  Text("藏龙东街藏龙星天地")
-                ],
-              ),
-              trailing: Icon(Icons.navigate_next),
-            ),
-          ),
-          SizedBox(
-            height: ScreenAdapter.height(40),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-                top: ScreenAdapter.height(20),
-                bottom: ScreenAdapter.height(20)),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
-            child: Column(
-              children: [
-                
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: const Text('确认订单'),
+          centerTitle: true,
+        ),
+        body: Stack(
+          children: [body(), bottom()],
+        ));
   }
 }
