@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-17 23:03:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-02 11:00:33
+ * @LastEditTime: 2024-04-02 11:14:21
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -87,9 +87,9 @@ class ThirdPageView extends GetView {
   Widget _bestGoods() {
     return Column(
       children: [
-        Padding(
+        Container(
           padding: EdgeInsets.fromLTRB(ScreenAdapter.width(30),
-              ScreenAdapter.height(20), ScreenAdapter.width(30), 0),
+              ScreenAdapter.height(20), ScreenAdapter.width(30), ScreenAdapter.width(0)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,6 +115,7 @@ class ThirdPageView extends GetView {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(bottom: ScreenAdapter.height(200)),
       key: controller.gk3,
       alignment: Alignment.center,
       width: ScreenAdapter.width(1080),

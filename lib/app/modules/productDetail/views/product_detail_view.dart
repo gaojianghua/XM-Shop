@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-02 10:53:28
+ * @LastEditTime: 2024-04-02 11:10:14
  * @Description: file content
  */
 import 'dart:async';
@@ -423,15 +423,12 @@ class ProductDetailView extends GetView<ProductDetailController> {
   Widget _body() {
     return SingleChildScrollView(
       controller: controller.scrollController,
-      child: Padding(
-        padding: EdgeInsets.only(bottom: ScreenAdapter.height(180)),
-        child: Column(
+      child: Column(
         children: [
           FirstPageView(showAttr),
           SecondPageView(_subHeader),
           ThirdPageView()
         ],
-      ) 
       ),
     );
   }
