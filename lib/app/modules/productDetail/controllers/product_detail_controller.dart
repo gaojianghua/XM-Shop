@@ -2,13 +2,14 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-20 10:18:45
+ * @LastEditTime: 2024-04-02 10:24:22
  * @Description: file content
  */
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/models/pcontent_model.dart';
+import 'package:xmshop/app/models/plist_model.dart';
 import 'package:xmshop/app/services/cartServices.dart';
 import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
@@ -43,12 +44,14 @@ class ProductDetailController extends GetxController {
   RxString selectAttr = "".obs;
   // 购买数量
   RxInt buyNum = 1.obs;
+  RxList<PlistItemModel> bestPList = <PlistItemModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
     scrollControllerListener();
     getProductDetail();
+    getHotGoodsData();
   }
 
   // 监听滚动条位置
@@ -205,5 +208,15 @@ class ProductDetailController extends GetxController {
   void buy() {
     getAttr();
     Get.back();
+  }
+
+  // 获取热门商品数据
+  getHotGoodsData() async {
+    var response = await https.get("/api/plist?is_best=1");
+    if (response != null) {
+      var pList = PlistModel.fromJson(response.data);
+      bestPList.value = pList.result!;
+      update();
+    }
   }
 }

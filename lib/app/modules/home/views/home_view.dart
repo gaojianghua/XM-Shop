@@ -341,7 +341,7 @@ class HomeView extends GetView<HomeController> {
       ],
     );
   }
-
+  // 省心优惠列表
   _masonryGridView() {
     return MasonryGridView.count(
         crossAxisCount: 2,
@@ -403,7 +403,7 @@ class HomeView extends GetView<HomeController> {
           ));
         });
   }
-
+  // 省心优惠
   Widget _bestGoods() {
     return Column(
       children: [

@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-03-20 14:44:40
+ * @LastEditTime: 2024-04-02 10:53:28
  * @Description: file content
  */
 import 'dart:async';
@@ -84,9 +84,9 @@ class ProductDetailView extends GetView<ProductDetailController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("数量",
+                          const Text("数量",
                               style:
-                                  const TextStyle(fontWeight: FontWeight.bold)),
+                                  TextStyle(fontWeight: FontWeight.bold)),
                           CartItemNumberView()
                         ],
                       ))
@@ -423,12 +423,15 @@ class ProductDetailView extends GetView<ProductDetailController> {
   Widget _body() {
     return SingleChildScrollView(
       controller: controller.scrollController,
-      child: Column(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: ScreenAdapter.height(180)),
+        child: Column(
         children: [
           FirstPageView(showAttr),
           SecondPageView(_subHeader),
           ThirdPageView()
         ],
+      ) 
       ),
     );
   }
@@ -514,14 +517,15 @@ class ProductDetailView extends GetView<ProductDetailController> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(ScreenAdapter.height(120)),
             child: _appBar(context)),
-        body: Stack(children: [
+        body: Stack(
+          children: [
           _body(),
           _bottom(),
           Obx(() => controller.showSubHeaderTabs.value
               ? Positioned(
                   left: 0,
                   top: ScreenAdapter.getStatusHeight() +
-                      ScreenAdapter.height(118),
+                      ScreenAdapter.height(120),
                   right: 0,
                   child: _subHeader(),
                 )
