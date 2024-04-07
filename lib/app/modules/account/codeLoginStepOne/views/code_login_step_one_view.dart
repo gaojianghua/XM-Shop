@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 14:15:34
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-01 16:13:20
+ * @LastEditTime: 2024-04-07 22:40:01
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -33,6 +33,7 @@ class CodeLoginStepOneView extends GetView<CodeLoginStepOneController> {
         children: [
           const LogoWidget(),
           Input(
+            controller: controller.telController,
             hintText: "请输入手机号",
             onChanged: (value) {},
           ),
@@ -47,19 +48,20 @@ class CodeLoginStepOneView extends GetView<CodeLoginStepOneController> {
                   "tel": controller.telController.text
                 });
               }else{
-                Get.snackbar("提示信息", "手机号格式不合法");
+                Get.snackbar("提示信息", result.message);
               }
             }
           },),
+          SizedBox(height: ScreenAdapter.height(40)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(onPressed: () {
-                Get.offAndToNamed("/register-step-one");
+                Get.toNamed("/register-step-one");
               }, child: const Text("新用户注册")),
               TextButton(onPressed: () {
                 Get.offAndToNamed("/pass-login");
-              }, child: const Text("其他登录方式"))
+              }, child: const Text("账户密码登录"))
             ],
           )
         ],

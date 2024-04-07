@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-17 23:03:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-02 11:14:21
+ * @LastEditTime: 2024-04-07 23:55:37
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -87,9 +87,12 @@ class ThirdPageView extends GetView {
   Widget _bestGoods() {
     return Column(
       children: [
-        Container(
-          padding: EdgeInsets.fromLTRB(ScreenAdapter.width(30),
-              ScreenAdapter.height(20), ScreenAdapter.width(30), ScreenAdapter.width(0)),
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+              ScreenAdapter.width(30),
+              ScreenAdapter.height(20),
+              ScreenAdapter.width(30),
+              ScreenAdapter.width(0)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,7 +108,10 @@ class ThirdPageView extends GetView {
         ),
         Container(
             padding: EdgeInsets.only(
-                left: ScreenAdapter.width(26), right: ScreenAdapter.width(26)),
+                top: ScreenAdapter.width(0),
+                left: ScreenAdapter.width(26),
+                right: ScreenAdapter.width(26),
+                bottom: ScreenAdapter.height(200)),
             color: const Color.fromRGBO(246, 246, 246, 1),
             child: Obx(() => _masonryGridView()))
       ],
@@ -115,7 +121,6 @@ class ThirdPageView extends GetView {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: ScreenAdapter.height(200)),
       key: controller.gk3,
       alignment: Alignment.center,
       width: ScreenAdapter.width(1080),

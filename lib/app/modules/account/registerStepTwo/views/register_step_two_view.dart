@@ -77,13 +77,10 @@ class RegisterStepTwoView extends GetView<RegisterStepTwoController> {
                 } else {
                   Get.snackbar("提示信息!", "验证码输入错误");
                 }
-                print("Completed");
               },
               onChanged: (value) {
-                print(value);
               },
               beforeTextPaste: (text) {
-                print("Allowing to paste $text");
                 return true;
               },
               appContext: context, //注意需要传入context
@@ -102,7 +99,7 @@ class RegisterStepTwoView extends GetView<RegisterStepTwoController> {
                           controller.sendCode();
                         },
                         child: const Text("重新发送验证码"))),
-                TextButton(onPressed: () {}, child: Text("帮助")),
+                TextButton(onPressed: () {}, child: const Text("帮助")),
               ],
             ),
           )

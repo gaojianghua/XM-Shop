@@ -2,12 +2,13 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-26 10:16:42
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-01 10:23:13
+ * @LastEditTime: 2024-04-07 20:39:38
  * @Description: file content
  */
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
 import '../controllers/checkout_controller.dart';
@@ -15,7 +16,7 @@ import '../controllers/checkout_controller.dart';
 class CheckoutView extends GetView<CheckoutController> {
   const CheckoutView({Key? key}) : super(key: key);
 
-  Widget checkoutItem() {
+  Widget checkoutItem(element) {
     return Container(
       padding: EdgeInsets.all(ScreenAdapter.height(20)),
       child: Row(
@@ -25,30 +26,29 @@ class CheckoutView extends GetView<CheckoutController> {
             width: ScreenAdapter.width(200),
             height: ScreenAdapter.height(200),
             padding: EdgeInsets.all(ScreenAdapter.width(20)),
-            child: Image.network(
-                "https://gaojianghua.oss-cn-hangzhou.aliyuncs.com/0.jpg",
+            child: Image.network(HttpsClient.replaceUri(element["pic"]),
                 fit: BoxFit.fitHeight),
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("小米Pro",
+                Text("${element["title"]}",
                     style: TextStyle(
                         fontSize: ScreenAdapter.fontSize(42),
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: ScreenAdapter.height(10)),
-                Text("白色128G"),
+                Text("${element["selectAttr"]}"),
                 SizedBox(height: ScreenAdapter.height(10)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "￥128",
+                      "￥${element["price"]}",
                       style: TextStyle(color: Colors.red),
                     ),
                     Text(
-                      "x2",
+                      "x${element["count"]}",
                       style: TextStyle(color: Colors.black87),
                     )
                   ],
@@ -107,16 +107,11 @@ class CheckoutView extends GetView<CheckoutController> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
-          child: Column(
-            children: [
-              checkoutItem(),
-              checkoutItem(),
-              checkoutItem(),
-              checkoutItem(),
-              checkoutItem(),
-              checkoutItem(),
-            ],
-          ),
+          child: Obx(() => controller.checkoutList.isNotEmpty ? Column(
+            children: controller.checkoutList.map((element) {
+              return checkoutItem(element);
+            }).toList()
+          ) : Text("")),
         ),
         SizedBox(
           height: ScreenAdapter.height(40),

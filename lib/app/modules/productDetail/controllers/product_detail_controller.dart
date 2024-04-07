@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-16 09:32:47
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-02 10:24:22
+ * @LastEditTime: 2024-04-07 23:11:54
  * @Description: file content
  */
 
@@ -13,6 +13,8 @@ import 'package:xmshop/app/models/plist_model.dart';
 import 'package:xmshop/app/services/cartServices.dart';
 import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
+import 'package:xmshop/app/services/storage.dart';
+import 'package:xmshop/app/services/userServices.dart';
 
 class ProductDetailController extends GetxController {
   final ScrollController scrollController = ScrollController();
@@ -131,6 +133,7 @@ class ProductDetailController extends GetxController {
     update();
   }
 
+  // 获取商品详情
   void getProductDetail() async {
     var response = await https.get("api/pcontent?id=${Get.arguments["id"]}");
     if (response != null) {
@@ -182,6 +185,7 @@ class ProductDetailController extends GetxController {
       }
     }
     selectAttr.value = tempList.join(",");
+    update();
   }
 
   // 增加购买数量
@@ -204,10 +208,37 @@ class ProductDetailController extends GetxController {
     Get.back();
     Get.snackbar("提示", "加入购物车成功");
   }
+  
   // 立即购买
-  void buy() {
+  void buy() async {
     getAttr();
     Get.back();
+    bool loginState = await isLogin();
+    if (loginState) {
+      //保存商品信息
+      List tempList = [];
+      tempList.add({
+        "_id": productDetail.value.sId,
+        "title": productDetail.value.title,
+        "price": productDetail.value.price,
+        "selectedAttr": selectAttr.value,
+        "count": buyNum.value,
+        "pic": productDetail.value.pic,
+        "checked": true
+      });
+      Storage.setData("checkoutList", tempList);
+      //执行跳转
+      Get.toNamed("/checkout");
+    } else {
+      //执行跳转
+      Get.toNamed("/code-login-step-one");
+      Get.snackbar("提示信息!", "您还有没有登录，请先登录");
+    }
+  }
+
+  //判断用户有没有登录
+  Future<bool> isLogin() async {
+    return await UserServices.getUserLoginState();
   }
 
   // 获取热门商品数据

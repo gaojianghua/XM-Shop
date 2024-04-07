@@ -2,14 +2,13 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-21 17:05:55
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-01 16:35:13
+ * @LastEditTime: 2024-04-07 22:31:56
  * @Description: file content
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:xmshop/app/models/message.dart';
-import 'package:xmshop/app/widget/loginBotton.dart';
 import '../../../../services/screenAdapter.dart';
 import '../../../../widget/logo.dart';
 import '../controllers/code_login_step_two_controller.dart';
@@ -97,17 +96,6 @@ class CodeLoginStepTwoView extends GetView<CodeLoginStepTwoController> {
                 TextButton(onPressed: () {}, child: const Text("帮助")),
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: ScreenAdapter.width(30), right: ScreenAdapter.width(30)),
-            child: LoginButton(
-                text: "获取验证码",
-                onPressed: () {
-                  print(controller.editingController.text);
-                  // 隐藏键盘
-                  FocusScope.of(context).requestFocus(FocusNode());
-                }),
           )
         ],
       ),
