@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-26 10:16:42
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-07 20:39:38
+ * @LastEditTime: 2024-04-11 15:25:53
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -71,10 +71,13 @@ class CheckoutView extends GetView<CheckoutController> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(ScreenAdapter.width(10))),
-          child: const ListTile(
-            leading: Icon(Icons.add_location),
-            title: Text("增加收货地址"),
-            trailing: Icon(Icons.navigate_next),
+          child: ListTile(
+            onTap: () {
+              Get.toNamed("/address-list");
+            },
+            leading: const Icon(Icons.add_location),
+            title: const Text("新建收货地址"),
+            trailing: const Icon(Icons.navigate_next),
           ),
         ),
         SizedBox(

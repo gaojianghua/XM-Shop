@@ -2,7 +2,7 @@
  * @Author: 高江华 g598670138@163.com
  * @Date: 2024-03-08 11:26:56
  * @LastEditors: 高江华
- * @LastEditTime: 2024-04-01 18:30:50
+ * @LastEditTime: 2024-04-09 14:05:32
  * @Description: file content
  */
 import 'package:flutter/material.dart';
@@ -27,10 +27,19 @@ class CartView extends GetView {
         title: const Text('购物车'),
         centerTitle: true,
         actions: [
-          TextButton(
-            onPressed: () {},
-            child: const Text("编辑"),
-          )
+          Obx(() => controller.isEdit.value
+              ? TextButton(
+                  onPressed: () {
+                    controller.changeEditState();
+                  },
+                  child: const Text("完成"),
+                )
+              : TextButton(
+                  onPressed: () {
+                    controller.changeEditState();
+                  },
+                  child: const Text("编辑"),
+                ))
         ],
       ),
       body: GetBuilder<CartController>(
@@ -95,7 +104,28 @@ class CartView extends GetView {
                                   )
                                 ],
                               ),
+                              Obx(() => controller.isEdit.value ?
                               Row(
+                                children: [
+                                  ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.red),
+                                          foregroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12)))),
+                                      onPressed: () {
+                                        controller.deleteCartData();
+                                      },
+                                      child: const Text("删除"))
+                                ],
+                              ) : Row(
                                 children: [
                                   const Text("合计："),
                                   Text(
@@ -124,7 +154,7 @@ class CartView extends GetView {
                                       },
                                       child: const Text("结算"))
                                 ],
-                              )
+                              ))
                             ],
                           ),
                         ),
